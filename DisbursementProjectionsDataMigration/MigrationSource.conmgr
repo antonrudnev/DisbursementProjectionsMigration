@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="MigrationSource"
+  DTS:DTSID="{F4E5A076-E9B4-405E-A7F4-8D755A066737}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=WIN-OR6R6RQHOCL;User ID=everisuser;Initial Catalog=DISBURSEMENT_PROJECTIONS_INTERMEDIATE;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAIaZf01wgUUO8NjktocLunQAAAAACAAAAAAAQZgAAAAEAACAAAADIZiu8BxaAp4bdlduIi/m3er9bxkynxszvignd02bQPQAAAAAOgAAAAAIAACAAAABIHGgIYALrW0yu7Mt6ZjMpf/UBwpd6s3Z2IuaDAKPDNYAAAADS4V3G8/8ptrUht310fLB2qEdk3e8nae1H04FnCeasH8kCiUtwIgzVbJXxf8iLpsF7Ef+c6rtcdjoiF94XHyFIzaW6b9vnBw40Wp0YOwQ0Zu/UMlTjdyzX4yaCMR691o/IZEZbYVt9qXy4Uo2rOMMwkSn/MK/2RpuyiyAYwUsK70AAAABQJyVK1koCO93GkhjdqVKvHTDnJIiEs0nSV+CBC+ZlTMXuN/8POAK4nTzMphPwxE+lDbjFBrOJAf9QuLYIeYBC</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>

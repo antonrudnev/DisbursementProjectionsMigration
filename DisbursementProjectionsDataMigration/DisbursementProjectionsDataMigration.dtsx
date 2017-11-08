@@ -1,0 +1,2949 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/8/2017 2:25:01 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WIN-OR6R6RQHOCL"
+  DTS:CreatorName="WIN-OR6R6RQHOCL\Anton"
+  DTS:DTSID="{8728C5C2-3B20-4957-A454-76DF63508D82}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.4100.1"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="DisbursementProjectionsDataMigration"
+  DTS:PackageType="5"
+  DTS:VersionBuild="23"
+  DTS:VersionGUID="{51AE0B31-3FE8-454B-97D3-7011C27FB941}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Base Migration"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{8102B918-26C7-4C3F-8988-C2F273B89A13}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Base Migration"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Base Migration\Conditional Split"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="Conditional Split"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Base Migration\Conditional Split.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Conditional Split.Inputs[Conditional Split Input].Columns[PROJECT_NUMBER]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="PROJECT_NUMBER"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECT_NUMBER]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Conditional Split.Inputs[Conditional Split Input].Columns[CONTRACT_NUMBER]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CONTRACT_NUMBER"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Conditional Split.Outputs[Contract Level]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Contract Level"
+                  synchronousInputId="Package\Base Migration\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">![ISNULL](#{Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">!ISNULL(CONTRACT_NUMBER)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Base Migration\Conditional Split.Outputs[Operation Level]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Operation Level"
+                  synchronousInputId="Package\Base Migration\Conditional Split.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">![ISNULL](#{Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECT_NUMBER]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">!ISNULL(PROJECT_NUMBER)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Base Migration\Conditional Split.Outputs[No Match]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="No Match"
+                  synchronousInputId="Package\Base Migration\Conditional Split.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Base Migration\Conditional Split.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\Base Migration\Conditional Split.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Base Migration\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Convergence Contracts to Join"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Convergence Contracts to Join"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[ACTIVITY_DOCUMENT]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT CONTRACT_ID
+	,CAST(CONTRACT_DNUM AS NVARCHAR(50)) AS CONTRACT_DNUM 
+	,GETDATE() AS CREATED
+	,N'DP_MIGRATION' AS CREATED_BY
+FROM CONTRACT</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Base Migration\Convergence Contracts to Join.Connections[OleDbConnection]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CREATED]"
+                      name="CREATED"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].ExternalColumns[CREATED_BY]"
+                      length="50"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CREATED_BY]"
+                      name="CREATED_BY"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CONTRACT_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].ExternalColumns[CONTRACT_ID]"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CONTRACT_ID]"
+                      name="CONTRACT_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CONTRACT_DNUM]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].ExternalColumns[CONTRACT_DNUM]"
+                      length="50"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CONTRACT_DNUM]"
+                      name="CONTRACT_DNUM"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                      dataType="dbTimeStamp"
+                      name="CREATED" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].ExternalColumns[CREATED_BY]"
+                      dataType="wstr"
+                      length="12"
+                      name="CREATED_BY" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].ExternalColumns[CONTRACT_ID]"
+                      dataType="i4"
+                      name="CONTRACT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].ExternalColumns[CONTRACT_DNUM]"
+                      dataType="wstr"
+                      length="50"
+                      name="CONTRACT_DNUM" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[CONTRACT_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[CONTRACT_ID]"
+                      name="CONTRACT_ID" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[CONTRACT_DNUM]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[CONTRACT_DNUM]"
+                      name="CONTRACT_DNUM" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                      name="CREATED" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[CREATED_BY]"
+                      name="CREATED_BY" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Convergence Operations to Join"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Convergence Operations to Join"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT OPERATION_ID
+	,OPERATION_NUMBER
+	,GETDATE() AS CREATED
+	,N'DP_MIGRATION' AS CREATED_BY
+FROM OPERATION</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Base Migration\Convergence Operations to Join.Connections[OleDbConnection]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[OPERATION_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].ExternalColumns[OPERATION_ID]"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[OPERATION_ID]"
+                      name="OPERATION_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[OPERATION_NUMBER]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].ExternalColumns[OPERATION_NUMBER]"
+                      length="50"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[OPERATION_NUMBER]"
+                      name="OPERATION_NUMBER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[CREATED]"
+                      name="CREATED"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].ExternalColumns[CREATED_BY]"
+                      length="50"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[CREATED_BY]"
+                      name="CREATED_BY"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].ExternalColumns[OPERATION_ID]"
+                      dataType="i4"
+                      name="OPERATION_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].ExternalColumns[OPERATION_NUMBER]"
+                      dataType="wstr"
+                      length="50"
+                      name="OPERATION_NUMBER" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                      dataType="dbTimeStamp"
+                      name="CREATED" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].ExternalColumns[CREATED_BY]"
+                      dataType="wstr"
+                      length="12"
+                      name="CREATED_BY" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[OPERATION_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[OPERATION_ID]"
+                      name="OPERATION_ID" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[OPERATION_NUMBER]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[OPERATION_NUMBER]"
+                      name="OPERATION_NUMBER" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                      name="CREATED" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[CREATED_BY]"
+                      name="CREATED_BY" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Disbursement Projections Base"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Disbursement Projections Base"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[MIGR_DISBURSEMENT_PROJECTION_BASIS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISBURSEMENT_PROJECTION_BASIS_ID
+	,PROJECT_NUMBER
+	,CONTRACT_NUMBER
+	,PROJECTED_CANCEL_AMOUNT
+FROM MIGR_DISBURSEMENT_PROJECTION_BASIS</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Base Migration\Disbursement Projections Base.Connections[OleDbConnection]"
+                  connectionManagerID="{F4E5A076-E9B4-405E-A7F4-8D755A066737}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[MigrationSource]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECT_NUMBER]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[PROJECT_NUMBER]"
+                      length="50"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECT_NUMBER]"
+                      name="PROJECT_NUMBER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[CONTRACT_NUMBER]"
+                      length="50"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]"
+                      name="CONTRACT_NUMBER"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[PROJECTED_CANCEL_AMOUNT]"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      name="PROJECTED_CANCEL_AMOUNT"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[PROJECT_NUMBER]"
+                      dataType="wstr"
+                      length="50"
+                      name="PROJECT_NUMBER" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[CONTRACT_NUMBER]"
+                      dataType="wstr"
+                      length="50"
+                      name="CONTRACT_NUMBER" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[PROJECTED_CANCEL_AMOUNT]"
+                      dataType="numeric"
+                      name="PROJECTED_CANCEL_AMOUNT"
+                      precision="18" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID" />
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[PROJECT_NUMBER]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[PROJECT_NUMBER]"
+                      name="PROJECT_NUMBER" />
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[CONTRACT_NUMBER]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[CONTRACT_NUMBER]"
+                      name="CONTRACT_NUMBER" />
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      dataType="numeric"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      name="PROJECTED_CANCEL_AMOUNT"
+                      precision="18" />
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Join by Contract"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Join by Contract"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Base Migration\Join by Contract.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Contract.Inputs[Merge Join Left Input].Columns[CONTRACT_DNUM]"
+                      cachedComparisonFlags="4"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CONTRACT_DNUM"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CONTRACT_DNUM]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Contract.Inputs[Merge Join Left Input].Columns[CONTRACT_ID]"
+                      cachedDataType="i4"
+                      cachedName="CONTRACT_ID"
+                      lineageId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CONTRACT_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Contract.Inputs[Merge Join Left Input].Columns[CREATED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CREATED"
+                      lineageId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CREATED]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Contract.Inputs[Merge Join Left Input].Columns[CREATED_BY]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CREATED_BY"
+                      lineageId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CREATED_BY]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Base Migration\Join by Contract.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Contract.Inputs[Merge Join Right Input].Columns[CONTRACT_NUMBER]"
+                      cachedComparisonFlags="4"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CONTRACT_NUMBER"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output].Columns[CONTRACT_NUMBER]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Contract.Inputs[Merge Join Right Input].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      cachedDataType="i4"
+                      cachedName="DISBURSEMENT_PROJECTION_BASIS_ID"
+                      lineageId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Contract.Inputs[Merge Join Right Input].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      cachedDataType="numeric"
+                      cachedName="PROJECTED_CANCEL_AMOUNT"
+                      cachedPrecision="18"
+                      lineageId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output]"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Contract.Inputs[Merge Join Right Input].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[CONTRACT_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[CONTRACT_ID]"
+                      name="CONTRACT_ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Contract.Inputs[Merge Join Left Input].Columns[CONTRACT_ID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      dataType="numeric"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      name="PROJECTED_CANCEL_AMOUNT"
+                      precision="18">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Contract.Inputs[Merge Join Right Input].Columns[PROJECTED_CANCEL_AMOUNT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[CREATED]"
+                      name="CREATED">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Contract.Inputs[Merge Join Left Input].Columns[CREATED]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[CREATED_BY]"
+                      name="CREATED_BY">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Contract.Inputs[Merge Join Left Input].Columns[CREATED_BY]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Join by Operation"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Join by Operation"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Base Migration\Join by Operation.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Operation.Inputs[Merge Join Left Input].Columns[OPERATION_NUMBER]"
+                      cachedComparisonFlags="4"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="OPERATION_NUMBER"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[OPERATION_NUMBER]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Operation.Inputs[Merge Join Left Input].Columns[OPERATION_ID]"
+                      cachedDataType="i4"
+                      cachedName="OPERATION_ID"
+                      lineageId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[OPERATION_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Operation.Inputs[Merge Join Left Input].Columns[CREATED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CREATED"
+                      lineageId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[CREATED]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Operation.Inputs[Merge Join Left Input].Columns[CREATED_BY]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CREATED_BY"
+                      lineageId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[CREATED_BY]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Base Migration\Join by Operation.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Operation.Inputs[Merge Join Right Input].Columns[PROJECT_NUMBER]"
+                      cachedComparisonFlags="4"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="PROJECT_NUMBER"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output].Columns[PROJECT_NUMBER]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Operation.Inputs[Merge Join Right Input].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      cachedDataType="i4"
+                      cachedName="DISBURSEMENT_PROJECTION_BASIS_ID"
+                      lineageId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Join by Operation.Inputs[Merge Join Right Input].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      cachedDataType="numeric"
+                      cachedName="PROJECTED_CANCEL_AMOUNT"
+                      cachedPrecision="18"
+                      lineageId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output]"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Operation.Inputs[Merge Join Right Input].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[OPERATION_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[OPERATION_ID]"
+                      name="OPERATION_ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Operation.Inputs[Merge Join Left Input].Columns[OPERATION_ID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      dataType="numeric"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      name="PROJECTED_CANCEL_AMOUNT"
+                      precision="18">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Operation.Inputs[Merge Join Right Input].Columns[PROJECTED_CANCEL_AMOUNT]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[CREATED]"
+                      name="CREATED">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Operation.Inputs[Merge Join Left Input].Columns[CREATED]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[CREATED_BY]"
+                      name="CREATED_BY">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Base Migration\Join by Operation.Inputs[Merge Join Left Input].Columns[CREATED_BY]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Push Contract Level Projections"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Push Contract Level Projections"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DISBURSEMENT_PROJECTION_BASE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Base Migration\Push Contract Level Projections.Connections[OleDbConnection]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[CREATED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CREATED"
+                      externalMetadataColumnId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[CREATED]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[CREATED_BY]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CREATED_BY"
+                      externalMetadataColumnId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED_BY]"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[CREATED_BY]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      cachedDataType="i4"
+                      cachedName="DISBURSEMENT_PROJECTION_BASIS_ID"
+                      externalMetadataColumnId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[DISBURSEMENT_PROJECTION_BASE_ID]"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[CONTRACT_ID]"
+                      cachedDataType="i4"
+                      cachedName="CONTRACT_ID"
+                      externalMetadataColumnId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[CONTRACT_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      cachedDataType="numeric"
+                      cachedName="PROJECTED_CANCEL_AMOUNT"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
+                      lineageId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[DISBURSEMENT_PROJECTION_BASE_ID]"
+                      dataType="i4"
+                      name="DISBURSEMENT_PROJECTION_BASE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_OPERATION_ID]"
+                      dataType="i4"
+                      name="FK_OPERATION_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
+                      dataType="i4"
+                      name="FK_CONTRCT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
+                      dataType="numeric"
+                      name="PLANNED_CANCELED_AMOUNT"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
+                      dataType="dbTimeStamp"
+                      name="CREATED" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      name="CREATED_BY" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[MODIFIED]"
+                      dataType="dbTimeStamp"
+                      name="MODIFIED" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[MODIFIED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      name="MODIFIED_BY" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Push Contract Level Projections.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Push Contract Level Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Base Migration\Push Contract Level Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Push Contract Level Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Push Operation Level Projections"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Push Operation Level Projections"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DISBURSEMENT_PROJECTION_BASE]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Base Migration\Push Operation Level Projections.Connections[OleDbConnection]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].Columns[CREATED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CREATED"
+                      externalMetadataColumnId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[CREATED]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].Columns[CREATED_BY]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CREATED_BY"
+                      externalMetadataColumnId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED_BY]"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[CREATED_BY]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      cachedDataType="i4"
+                      cachedName="DISBURSEMENT_PROJECTION_BASIS_ID"
+                      externalMetadataColumnId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[DISBURSEMENT_PROJECTION_BASE_ID]"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].Columns[OPERATION_ID]"
+                      cachedDataType="i4"
+                      cachedName="OPERATION_ID"
+                      externalMetadataColumnId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_OPERATION_ID]"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[OPERATION_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      cachedDataType="numeric"
+                      cachedName="PROJECTED_CANCEL_AMOUNT"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
+                      lineageId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[DISBURSEMENT_PROJECTION_BASE_ID]"
+                      dataType="i4"
+                      name="DISBURSEMENT_PROJECTION_BASE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_OPERATION_ID]"
+                      dataType="i4"
+                      name="FK_OPERATION_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
+                      dataType="i4"
+                      name="FK_CONTRCT_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
+                      dataType="numeric"
+                      name="PLANNED_CANCELED_AMOUNT"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
+                      dataType="dbTimeStamp"
+                      name="CREATED" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      name="CREATED_BY" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[MODIFIED]"
+                      dataType="dbTimeStamp"
+                      name="MODIFIED" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[MODIFIED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      name="MODIFIED_BY" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Push Operation Level Projections.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Push Operation Level Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Base Migration\Push Operation Level Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Push Operation Level Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Sort Source by Contract"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort Source by Contract"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Base Migration\Sort Source by Contract.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Source by Contract.Inputs[Sort Input].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      cachedDataType="i4"
+                      cachedName="DISBURSEMENT_PROJECTION_BASIS_ID"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Source by Contract.Inputs[Sort Input].Columns[CONTRACT_NUMBER]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CONTRACT_NUMBER"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">4</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Source by Contract.Inputs[Sort Input].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      cachedDataType="numeric"
+                      cachedName="PROJECTED_CANCEL_AMOUNT"
+                      cachedPrecision="18"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output].Columns[CONTRACT_NUMBER]"
+                      comparisonFlags="4"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output].Columns[CONTRACT_NUMBER]"
+                      name="CONTRACT_NUMBER"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      dataType="numeric"
+                      lineageId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      name="PROJECTED_CANCEL_AMOUNT"
+                      precision="18">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Sort Source by Operation"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort Source by Operation"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Base Migration\Sort Source by Operation.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Source by Operation.Inputs[Sort Input].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      cachedDataType="i4"
+                      cachedName="DISBURSEMENT_PROJECTION_BASIS_ID"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Source by Operation.Inputs[Sort Input].Columns[PROJECT_NUMBER]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="PROJECT_NUMBER"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECT_NUMBER]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">4</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Source by Operation.Inputs[Sort Input].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      cachedDataType="numeric"
+                      cachedName="PROJECTED_CANCEL_AMOUNT"
+                      cachedPrecision="18"
+                      lineageId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output].Columns[PROJECT_NUMBER]"
+                      comparisonFlags="4"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output].Columns[PROJECT_NUMBER]"
+                      name="PROJECT_NUMBER"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECT_NUMBER]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      dataType="numeric"
+                      lineageId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]"
+                      name="PROJECTED_CANCEL_AMOUNT"
+                      precision="18">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Sort Target by Contract"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort Target by Contract"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Base Migration\Sort Target by Contract.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Target by Contract.Inputs[Sort Input].Columns[CONTRACT_DNUM]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CONTRACT_DNUM"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CONTRACT_DNUM]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">4</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Target by Contract.Inputs[Sort Input].Columns[CREATED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CREATED"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CREATED]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Target by Contract.Inputs[Sort Input].Columns[CREATED_BY]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CREATED_BY"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CREATED_BY]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Target by Contract.Inputs[Sort Input].Columns[CONTRACT_ID]"
+                      cachedDataType="i4"
+                      cachedName="CONTRACT_ID"
+                      lineageId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CONTRACT_ID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CONTRACT_DNUM]"
+                      comparisonFlags="4"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CONTRACT_DNUM]"
+                      name="CONTRACT_DNUM"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CONTRACT_DNUM]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CREATED]"
+                      name="CREATED">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CREATED]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CREATED_BY]"
+                      name="CREATED_BY">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CREATED_BY]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CONTRACT_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output].Columns[CONTRACT_ID]"
+                      name="CONTRACT_ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output].Columns[CONTRACT_ID]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Base Migration\Sort Target by Operation"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort Target by Operation"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Base Migration\Sort Target by Operation.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Target by Operation.Inputs[Sort Input].Columns[OPERATION_ID]"
+                      cachedDataType="i4"
+                      cachedName="OPERATION_ID"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[OPERATION_ID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Target by Operation.Inputs[Sort Input].Columns[OPERATION_NUMBER]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="OPERATION_NUMBER"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[OPERATION_NUMBER]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">4</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Target by Operation.Inputs[Sort Input].Columns[CREATED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CREATED"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[CREATED]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Base Migration\Sort Target by Operation.Inputs[Sort Input].Columns[CREATED_BY]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="CREATED_BY"
+                      lineageId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[CREATED_BY]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[OPERATION_ID]"
+                      dataType="i4"
+                      lineageId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[OPERATION_ID]"
+                      name="OPERATION_ID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[OPERATION_ID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[OPERATION_NUMBER]"
+                      comparisonFlags="4"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[OPERATION_NUMBER]"
+                      name="OPERATION_NUMBER"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[OPERATION_NUMBER]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[CREATED]"
+                      name="CREATED">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[CREATED]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output].Columns[CREATED_BY]"
+                      name="CREATED_BY">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output].Columns[CREATED_BY]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Base Migration.Paths[Contract Level]"
+              endId="Package\Base Migration\Sort Source by Contract.Inputs[Sort Input]"
+              name="Contract Level"
+              startId="Package\Base Migration\Conditional Split.Outputs[Contract Level]" />
+            <path
+              refId="Package\Base Migration.Paths[Merge Join Output]"
+              endId="Package\Base Migration\Push Operation Level Projections.Inputs[OLE DB Destination Input]"
+              name="Merge Join Output"
+              startId="Package\Base Migration\Join by Operation.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Base Migration.Paths[Merge Join Output1]"
+              endId="Package\Base Migration\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
+              name="Merge Join Output"
+              startId="Package\Base Migration\Join by Contract.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Base Migration.Paths[OLE DB Source Output]"
+              endId="Package\Base Migration\Conditional Split.Inputs[Conditional Split Input]"
+              name="OLE DB Source Output"
+              startId="Package\Base Migration\Disbursement Projections Base.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Base Migration.Paths[OLE DB Source Output1]"
+              endId="Package\Base Migration\Sort Target by Operation.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Base Migration\Convergence Operations to Join.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Base Migration.Paths[OLE DB Source Output2]"
+              endId="Package\Base Migration\Sort Target by Contract.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Base Migration\Convergence Contracts to Join.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Base Migration.Paths[Operation Level]"
+              endId="Package\Base Migration\Sort Source by Operation.Inputs[Sort Input]"
+              name="Operation Level"
+              startId="Package\Base Migration\Conditional Split.Outputs[Operation Level]" />
+            <path
+              refId="Package\Base Migration.Paths[Sort Output]"
+              endId="Package\Base Migration\Join by Operation.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Base Migration\Sort Target by Operation.Outputs[Sort Output]" />
+            <path
+              refId="Package\Base Migration.Paths[Sort Output1]"
+              endId="Package\Base Migration\Join by Operation.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Base Migration\Sort Source by Operation.Outputs[Sort Output]" />
+            <path
+              refId="Package\Base Migration.Paths[Sort Output2]"
+              endId="Package\Base Migration\Join by Contract.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Base Migration\Sort Source by Contract.Outputs[Sort Output]" />
+            <path
+              refId="Package\Base Migration.Paths[Sort Output3]"
+              endId="Package\Base Migration\Join by Contract.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Base Migration\Sort Target by Contract.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Preprocessing"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{58D788F9-1AE9-4632-AAE8-1A4BA28E6EC3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Preprocessing"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}"
+          SQLTask:SqlStatementSource="DELETE FROM DISBURSEMENT_PROJECTION&#xA;DELETE FROM DISBURSEMENT_PROJECTION_BASE" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Projections Migration"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{6B2D7AF1-E9EB-470E-B37A-E1BF90A4F2E2}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Projections Migration"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Projections Migration\Disbursement Projections"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Disbursement Projections"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISBURSEMENT_PROJECTION_ID
+	,DISBURSEMENT_PROJECTION_BASIS_ID
+	,YEAR
+	,MONTH
+	,AMOUNT
+	,GETDATE() AS CREATED
+	,N'DP_MIGRATION' AS CREATED_BY
+FROM MIGR_DISBURSEMENT_PROJECTION</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Projections Migration\Disbursement Projections.Connections[OleDbConnection]"
+                  connectionManagerID="{F4E5A076-E9B4-405E-A7F4-8D755A066737}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[MigrationSource]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[DISBURSEMENT_PROJECTION_ID]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_ID]"
+                      name="DISBURSEMENT_PROJECTION_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[YEAR]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[YEAR]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[YEAR]"
+                      name="YEAR"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[MONTH]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[MONTH]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[MONTH]"
+                      name="MONTH"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[AMOUNT]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[AMOUNT]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[AMOUNT]"
+                      name="AMOUNT"
+                      precision="18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[CREATED]"
+                      name="CREATED"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[CREATED_BY]"
+                      length="12"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[CREATED_BY]"
+                      name="CREATED_BY"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[DISBURSEMENT_PROJECTION_ID]"
+                      dataType="i4"
+                      name="DISBURSEMENT_PROJECTION_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[YEAR]"
+                      dataType="i4"
+                      name="YEAR" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[MONTH]"
+                      dataType="i4"
+                      name="MONTH" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[AMOUNT]"
+                      dataType="numeric"
+                      name="AMOUNT"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[CREATED]"
+                      dataType="dbTimeStamp"
+                      name="CREATED" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[CREATED_BY]"
+                      dataType="wstr"
+                      length="12"
+                      name="CREATED_BY" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[DISBURSEMENT_PROJECTION_ID]"
+                      dataType="i4"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[DISBURSEMENT_PROJECTION_ID]"
+                      name="DISBURSEMENT_PROJECTION_ID" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      dataType="i4"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      name="DISBURSEMENT_PROJECTION_BASIS_ID" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[YEAR]"
+                      dataType="i4"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[YEAR]"
+                      name="YEAR" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[MONTH]"
+                      dataType="i4"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[MONTH]"
+                      name="MONTH" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[AMOUNT]"
+                      dataType="numeric"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[AMOUNT]"
+                      name="AMOUNT"
+                      precision="18" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[CREATED]"
+                      name="CREATED" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[CREATED_BY]"
+                      dataType="wstr"
+                      length="12"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[CREATED_BY]"
+                      name="CREATED_BY" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Projections Migration\Push Disbursement Projections"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Push Disbursement Projections"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DISBURSEMENT_PROJECTION]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Projections Migration\Push Disbursement Projections.Connections[OleDbConnection]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].Columns[DISBURSEMENT_PROJECTION_ID]"
+                      cachedDataType="i4"
+                      cachedName="DISBURSEMENT_PROJECTION_ID"
+                      externalMetadataColumnId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[DISBURSEMENT_PROJECTION_ID]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_ID]" />
+                    <inputColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].Columns[YEAR]"
+                      cachedDataType="i4"
+                      cachedName="YEAR"
+                      externalMetadataColumnId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[YEAR]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[YEAR]" />
+                    <inputColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].Columns[MONTH]"
+                      cachedDataType="i4"
+                      cachedName="MONTH"
+                      externalMetadataColumnId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[MONTH]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[MONTH]" />
+                    <inputColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].Columns[AMOUNT]"
+                      cachedDataType="numeric"
+                      cachedName="AMOUNT"
+                      cachedPrecision="18"
+                      externalMetadataColumnId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[AMOUNT]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[AMOUNT]" />
+                    <inputColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].Columns[CREATED]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="CREATED"
+                      externalMetadataColumnId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[CREATED]" />
+                    <inputColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].Columns[CREATED_BY]"
+                      cachedDataType="wstr"
+                      cachedLength="12"
+                      cachedName="CREATED_BY"
+                      externalMetadataColumnId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED_BY]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[CREATED_BY]" />
+                    <inputColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]"
+                      cachedDataType="i4"
+                      cachedName="DISBURSEMENT_PROJECTION_BASIS_ID"
+                      externalMetadataColumnId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_DISBURSEMENT_PROJECTION_BASE_ID]"
+                      lineageId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[DISBURSEMENT_PROJECTION_ID]"
+                      dataType="i4"
+                      name="DISBURSEMENT_PROJECTION_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_DISBURSEMENT_PROJECTION_BASE_ID]"
+                      dataType="i4"
+                      name="FK_DISBURSEMENT_PROJECTION_BASE_ID" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[YEAR]"
+                      dataType="i4"
+                      name="YEAR" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[MONTH]"
+                      dataType="i4"
+                      name="MONTH" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[AMOUNT]"
+                      dataType="numeric"
+                      name="AMOUNT"
+                      precision="18" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
+                      dataType="dbTimeStamp"
+                      name="CREATED" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      name="CREATED_BY" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[MODIFIED]"
+                      dataType="dbTimeStamp"
+                      name="MODIFIED" />
+                    <externalMetadataColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[MODIFIED_BY]"
+                      dataType="wstr"
+                      length="50"
+                      name="MODIFIED_BY" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Projections Migration\Push Disbursement Projections.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Projections Migration\Push Disbursement Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Projections Migration\Push Disbursement Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Projections Migration\Push Disbursement Projections.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Projections Migration.Paths[OLE DB Source Output]"
+              endId="Package\Projections Migration\Push Disbursement Projections.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Projections Migration\Disbursement Projections.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{263EE177-5F7A-435E-BA6D-EED2342B269C}"
+      DTS:From="Package\Preprocessing"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Base Migration" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{9CC2B95D-9B77-4109-9075-D5B92DDDAF1F}"
+      DTS:From="Package\Base Migration"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Projections Migration" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="148.5,42"
+          Id="Package\Base Migration"
+          TopLeft="201.75,111.25" />
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Preprocessing"
+          TopLeft="203.5,1.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="275.75,43.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67.75"
+              Start="0,0"
+              End="0,60.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="177.5,42"
+          Id="Package\Projections Migration"
+          TopLeft="184.25,208" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="274.5,153.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54.75"
+              Start="0,0"
+              End="0,47.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Base Migration">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="224,42"
+          Id="Package\Base Migration\Disbursement Projections Base"
+          TopLeft="542.5,5.5" />
+        <NodeLayout
+          Size="229,42"
+          Id="Package\Base Migration\Convergence Operations to Join"
+          TopLeft="33.25,82.75" />
+        <NodeLayout
+          Size="222.5,42"
+          Id="Package\Base Migration\Convergence Contracts to Join"
+          TopLeft="1019.75,82.25" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Base Migration\Conditional Split"
+          TopLeft="570,82" />
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[OLE DB Source Output]"
+          TopLeft="651,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.5"
+              Start="0,0"
+              End="0,27">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="197.5,42"
+          Id="Package\Base Migration\Sort Source by Operation"
+          TopLeft="282,83.5" />
+        <NodeLayout
+          Size="191,42"
+          Id="Package\Base Migration\Sort Source by Contract"
+          TopLeft="812,81.5" />
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[Operation Level]"
+          TopLeft="570,103.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-90.5,0"
+              Start="0,0"
+              End="-83,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-83,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-76.6246484375,5,70.249296875,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[Contract Level]"
+          TopLeft="725,102.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="87,0"
+              Start="0,0"
+              End="79.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="79.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="7.72535156249999,5,64.049296875,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="233.5,42"
+          Id="Package\Base Migration\Push Operation Level Projections"
+          TopLeft="271.5,268" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\Base Migration\Push Contract Level Projections"
+          TopLeft="792.5,265.5" />
+        <NodeLayout
+          Size="196.5,42"
+          Id="Package\Base Migration\Sort Target by Operation"
+          TopLeft="45,167.5" />
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[OLE DB Source Output1]"
+          TopLeft="145.5,124.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.75"
+              Start="0,0"
+              End="0,35.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="161.5,42"
+          Id="Package\Base Migration\Join by Operation"
+          TopLeft="301.27309893704,167.5" />
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[Sort Output]"
+          TopLeft="241.5,188.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="59.7730989370401,0"
+              Start="0,0"
+              End="52.2730989370401,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="52.2730989370401,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[Sort Output1]"
+          TopLeft="381.38654946852,125.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42"
+              Start="0,0"
+              End="0,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[Merge Join Output]"
+          TopLeft="385.13654946852,209.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.5"
+              Start="0,0"
+              End="0,51">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Base Migration\Sort Target by Contract"
+          TopLeft="1043,174.5" />
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[OLE DB Source Output2]"
+          TopLeft="1134.5,124.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.25"
+              Start="0,0"
+              End="0,42.75">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.75" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Base Migration\Join by Contract"
+          TopLeft="829,176.5" />
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[Sort Output2]"
+          TopLeft="907,123.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53"
+              Start="0,0"
+              End="0,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[Sort Output3]"
+          TopLeft="1043,196.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-59,0"
+              Start="0,0"
+              End="-51.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-51.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration.Paths[Merge Join Output1]"
+          TopLeft="906.25,218.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Base Migration\Disbursement Projections Base">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Base Migration\Convergence Operations to Join">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Base Migration\Convergence Contracts to Join">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Base Migration\Push Operation Level Projections">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Base Migration\Push Contract Level Projections">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Projections Migration">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="198.5,42"
+          Id="Package\Projections Migration\Disbursement Projections"
+          TopLeft="331,44.5" />
+        <NodeLayout
+          Size="224.5,42"
+          Id="Package\Projections Migration\Push Disbursement Projections"
+          TopLeft="322,150" />
+        <EdgeLayout
+          Id="Package\Projections Migration.Paths[OLE DB Source Output]"
+          TopLeft="432.25,86.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.5"
+              Start="0,0"
+              End="0,56">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Projections Migration\Disbursement Projections">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Projections Migration\Push Disbursement Projections">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
