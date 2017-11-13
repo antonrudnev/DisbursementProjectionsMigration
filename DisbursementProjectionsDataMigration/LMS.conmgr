@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="LMS"
+  DTS:DTSID="{4D69DAA6-2C2A-4F26-B3B6-DB7D4B856038}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=VDEVDBMS2)(PORT=4206)))(CONNECT_DATA=(SERVICE_NAME=LMSDEV01.IADB.ORG)));User ID=LMSREPORTS;Provider=OraOLEDB.Oracle.1;Persist Security Info=True;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAiVi3mxNFJk2dfHJOD6kYPQAAAAACAAAAAAAQZgAAAAEAACAAAABobsNRrwv1w1ofKvVz70Kkn5f6W3/jpqUaQ0kEQ+kyOQAAAAAOgAAAAAIAACAAAABcTHTmdTJR/vXutbz3+Ev3SAjRY5cPQbppbCQ58Q97jYAAAAB45PJMXiQeoIxFSrWi/21QRIFfwZ9hB2HYJ74KDJAVVePBNE95iRPW2o/gBO/yPbEZRxEMHItX6lV4y0nVEkamg/si0Xkv0QzCDG4DWSroePauwjxjQ7/Et7tthXCtUOICp2Ip3O3boHePXMpLthqci/A67OGt9TTr/KymDWhF8UAAAADLZf0UO/9LDdqZduvreuBjB+Tw7gv1WBvfh1WqXMx4MJKsj3GlCbA34+f6gdd9rM9GqZSJPBlmISl1/218ipBi</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
