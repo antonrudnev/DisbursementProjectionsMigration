@@ -5,25 +5,26 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="WIN-OR6R6RQHOCL"
   DTS:CreatorName="WIN-OR6R6RQHOCL\Anton"
+  DTS:DelayValidation="True"
   DTS:DTSID="{8728C5C2-3B20-4957-A454-76DF63508D82}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="12.0.4100.1"
   DTS:LocaleID="1033"
   DTS:ObjectName="DisbursementProjectionsDataMigration"
   DTS:PackageType="5"
-  DTS:VersionBuild="72"
-  DTS:VersionGUID="{44B194AD-2405-4053-A8EF-E83AF70A3D7F}">
+  DTS:VersionBuild="78"
+  DTS:VersionGUID="{AF86341A-62F3-4878-96F1-365B609C7085}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Convergence]"
+      DTS:refId="Package.ConnectionManagers[TestMigrationSource]"
       DTS:CreationName="OLEDB"
-      DTS:DTSID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}"
-      DTS:ObjectName="Convergence">
+      DTS:DTSID="{F4E5A076-E9B4-405E-A7F4-8D755A066737}"
+      DTS:ObjectName="TestMigrationSource">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=WIN-OR6R6RQHOCL;Initial Catalog=OPERATIONS;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+          DTS:ConnectionString="Data Source=WIN-OR6R6RQHOCL;User ID=everisuser;Initial Catalog=DISBURSEMENT_PROJECTIONS_INTERMEDIATE;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -256,8 +257,8 @@ FROM CONTRACT</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from MSSQL\Convergence Contracts to Join.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -426,8 +427,8 @@ FROM OPERATION</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from MSSQL\Convergence Operations to Join.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -596,8 +597,8 @@ FROM MIGR_DISBURSEMENT_PROJECTION_BASIS</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from MSSQL\Disbursement Projections Base.Connections[OleDbConnection]"
-                  connectionManagerID="{F4E5A076-E9B4-405E-A7F4-8D755A066737}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[MigrationSource]"
+                  connectionManagerID="Package.ConnectionManagers[TestMigrationSource]"
+                  connectionManagerRefId="Package.ConnectionManagers[TestMigrationSource]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1101,8 +1102,8 @@ FROM MIGR_DISBURSEMENT_PROJECTION_BASIS</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from MSSQL\Push Contract Level Projections.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1134,12 +1135,6 @@ FROM MIGR_DISBURSEMENT_PROJECTION_BASIS</property>
                       externalMetadataColumnId="Package\Base Migration from MSSQL\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[DISBURSEMENT_PROJECTION_BASE_ID]"
                       lineageId="Package\Base Migration from MSSQL\Join by Contract.Outputs[Merge Join Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
                     <inputColumn
-                      refId="Package\Base Migration from MSSQL\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[CONTRACT_ID]"
-                      cachedDataType="i4"
-                      cachedName="CONTRACT_ID"
-                      externalMetadataColumnId="Package\Base Migration from MSSQL\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
-                      lineageId="Package\Base Migration from MSSQL\Join by Contract.Outputs[Merge Join Output].Columns[CONTRACT_ID]" />
-                    <inputColumn
                       refId="Package\Base Migration from MSSQL\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[PROJECTED_CANCEL_AMOUNT]"
                       cachedDataType="numeric"
                       cachedName="PROJECTED_CANCEL_AMOUNT"
@@ -1158,14 +1153,11 @@ FROM MIGR_DISBURSEMENT_PROJECTION_BASIS</property>
                       dataType="i4"
                       name="FK_OPERATION_ID" />
                     <externalMetadataColumn
-                      refId="Package\Base Migration from MSSQL\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
-                      dataType="i4"
-                      name="FK_CONTRCT_ID" />
-                    <externalMetadataColumn
                       refId="Package\Base Migration from MSSQL\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
                       dataType="numeric"
                       name="PLANNED_CANCELED_AMOUNT"
-                      precision="18" />
+                      precision="18"
+                      scale="2" />
                     <externalMetadataColumn
                       refId="Package\Base Migration from MSSQL\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
                       dataType="dbTimeStamp"
@@ -1184,6 +1176,10 @@ FROM MIGR_DISBURSEMENT_PROJECTION_BASIS</property>
                       dataType="wstr"
                       length="50"
                       name="MODIFIED_BY" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration from MSSQL\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRACT_ID]"
+                      dataType="i4"
+                      name="FK_CONTRACT_ID" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1271,8 +1267,8 @@ FROM MIGR_DISBURSEMENT_PROJECTION_BASIS</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from MSSQL\Push Operation Level Projections.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -2398,8 +2394,8 @@ FROM CONTRACT</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from Oracle\Convergence Contracts to Join.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -2586,8 +2582,8 @@ FROM OPERATION</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from Oracle\Convergence Operations to Join.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3394,8 +3390,8 @@ FROM LMSADM1.DSBPRJBS</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from Oracle\Push Contract Level Projections.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3428,12 +3424,6 @@ FROM LMSADM1.DSBPRJBS</property>
                       externalMetadataColumnId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[DISBURSEMENT_PROJECTION_BASE_ID]"
                       lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
                     <inputColumn
-                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[CONTRACT_ID]"
-                      cachedDataType="i4"
-                      cachedName="CONTRACT_ID"
-                      externalMetadataColumnId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
-                      lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[CONTRACT_ID]" />
-                    <inputColumn
                       refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[PROJECTED_CANCEL_AMOUNT]"
                       cachedDataType="wstr"
                       cachedLength="38"
@@ -3446,6 +3436,12 @@ FROM LMSADM1.DSBPRJBS</property>
                       cachedName="FK_OPERATION_ID"
                       externalMetadataColumnId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_OPERATION_ID]"
                       lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[FK_OPERATION_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[CONTRACT_ID]"
+                      cachedDataType="i4"
+                      cachedName="CONTRACT_ID"
+                      externalMetadataColumnId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRACT_ID]"
+                      lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[CONTRACT_ID]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -3458,14 +3454,11 @@ FROM LMSADM1.DSBPRJBS</property>
                       dataType="i4"
                       name="FK_OPERATION_ID" />
                     <externalMetadataColumn
-                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
-                      dataType="i4"
-                      name="FK_CONTRCT_ID" />
-                    <externalMetadataColumn
                       refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
                       dataType="numeric"
                       name="PLANNED_CANCELED_AMOUNT"
-                      precision="18" />
+                      precision="18"
+                      scale="2" />
                     <externalMetadataColumn
                       refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
                       dataType="dbTimeStamp"
@@ -3484,6 +3477,10 @@ FROM LMSADM1.DSBPRJBS</property>
                       dataType="wstr"
                       length="50"
                       name="MODIFIED_BY" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRACT_ID]"
+                      dataType="i4"
+                      name="FK_CONTRACT_ID" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -3571,8 +3568,8 @@ FROM LMSADM1.DSBPRJBS</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from Oracle\Push Issues.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3721,8 +3718,8 @@ FROM LMSADM1.DSBPRJBS</property>
               <connections>
                 <connection
                   refId="Package\Base Migration from Oracle\Push Operation Level Projections.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3779,14 +3776,11 @@ FROM LMSADM1.DSBPRJBS</property>
                       dataType="i4"
                       name="FK_OPERATION_ID" />
                     <externalMetadataColumn
-                      refId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
-                      dataType="i4"
-                      name="FK_CONTRCT_ID" />
-                    <externalMetadataColumn
                       refId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
                       dataType="numeric"
                       name="PLANNED_CANCELED_AMOUNT"
-                      precision="18" />
+                      precision="18"
+                      scale="2" />
                     <externalMetadataColumn
                       refId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
                       dataType="dbTimeStamp"
@@ -3805,6 +3799,10 @@ FROM LMSADM1.DSBPRJBS</property>
                       dataType="wstr"
                       length="50"
                       name="MODIFIED_BY" />
+                    <externalMetadataColumn
+                      refId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRACT_ID]"
+                      dataType="i4"
+                      name="FK_CONTRACT_ID" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -4827,8 +4825,8 @@ FROM MIGR_DISBURSEMENT_PROJECTION</property>
               <connections>
                 <connection
                   refId="Package\Projections Migration from MSSQL\Disbursement Projections.Connections[OleDbConnection]"
-                  connectionManagerID="{F4E5A076-E9B4-405E-A7F4-8D755A066737}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[MigrationSource]"
+                  connectionManagerID="Package.ConnectionManagers[TestMigrationSource]"
+                  connectionManagerRefId="Package.ConnectionManagers[TestMigrationSource]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -5055,8 +5053,8 @@ FROM MIGR_DISBURSEMENT_PROJECTION</property>
               <connections>
                 <connection
                   refId="Package\Projections Migration from MSSQL\Push Disbursement Projections.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -5636,8 +5634,8 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
               <connections>
                 <connection
                   refId="Package\Projections Migration from Oracle\Lookup Base.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -5766,8 +5764,8 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
               <connections>
                 <connection
                   refId="Package\Projections Migration from Oracle\Push Disbursement Projections.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -5842,7 +5840,8 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
                       refId="Package\Projections Migration from Oracle\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[AMOUNT]"
                       dataType="numeric"
                       name="AMOUNT"
-                      precision="18" />
+                      precision="18"
+                      scale="2" />
                     <externalMetadataColumn
                       refId="Package\Projections Migration from Oracle\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
                       dataType="dbTimeStamp"
@@ -5948,8 +5947,8 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
               <connections>
                 <connection
                   refId="Package\Projections Migration from Oracle\Push Issues.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Convergence]"
-                  connectionManagerRefId="Package.ConnectionManagers[Convergence]"
+                  connectionManagerID="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Convergence]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
