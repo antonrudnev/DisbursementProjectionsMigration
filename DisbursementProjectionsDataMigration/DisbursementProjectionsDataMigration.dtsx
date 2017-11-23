@@ -12,8 +12,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DisbursementProjectionsDataMigration"
   DTS:PackageType="5"
-  DTS:VersionBuild="79"
-  DTS:VersionGUID="{2BED8501-02FA-4B2A-8ECE-629A3DDCF1EE}">
+  DTS:VersionBuild="88"
+  DTS:VersionGUID="{4035D7D3-F9EE-4669-8668-FE1E6D6C6BE6}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -2058,7 +2058,7 @@ FROM MIGR_DISBURSEMENT_PROJECTION_BASIS</property>
                     <inputColumn
                       refId="Package\Base Migration from Oracle\Conditional Split 1.Inputs[Conditional Split Input].Columns[CONTRACT_NUMBER]"
                       cachedDataType="wstr"
-                      cachedLength="50"
+                      cachedLength="24"
                       cachedName="CONTRACT_NUMBER"
                       lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]" />
                   </inputColumns>
@@ -2788,17 +2788,16 @@ FROM LMSADM1.DSBPRJBS</property>
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[CONTRACT_NUMBER]"
-                      length="50"
+                      length="24"
                       lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]"
                       name="CONTRACT_NUMBER"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      dataType="wstr"
+                      dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[PROJECTED_CANCEL_AMOUNT]"
-                      length="38"
                       lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]"
                       name="PROJECTED_CANCEL_AMOUNT"
                       truncationRowDisposition="FailComponent" />
@@ -2822,9 +2821,9 @@ FROM LMSADM1.DSBPRJBS</property>
                       name="CONTRACT_NUMBER" />
                     <externalMetadataColumn
                       refId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].ExternalColumns[PROJECTED_CANCEL_AMOUNT]"
-                      dataType="wstr"
-                      length="38"
-                      name="PROJECTED_CANCEL_AMOUNT" />
+                      dataType="numeric"
+                      name="PROJECTED_CANCEL_AMOUNT"
+                      precision="10" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -2852,10 +2851,10 @@ FROM LMSADM1.DSBPRJBS</property>
                       name="CONTRACT_NUMBER" />
                     <outputColumn
                       refId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      dataType="wstr"
-                      length="38"
+                      dataType="numeric"
                       lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      name="PROJECTED_CANCEL_AMOUNT" />
+                      name="PROJECTED_CANCEL_AMOUNT"
+                      precision="10" />
                     <outputColumn
                       refId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -2995,8 +2994,7 @@ FROM LMSADM1.DSBPRJBS</property>
                       lineageId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
                     <inputColumn
                       refId="Package\Base Migration from Oracle\Join by Operation.Inputs[Merge Join Right Input].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      cachedDataType="wstr"
-                      cachedLength="38"
+                      cachedDataType="i4"
                       cachedName="PROJECTED_CANCEL_AMOUNT"
                       lineageId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]" />
                   </inputColumns>
@@ -3070,8 +3068,7 @@ FROM LMSADM1.DSBPRJBS</property>
                     </outputColumn>
                     <outputColumn
                       refId="Package\Base Migration from Oracle\Join by Operation.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      dataType="wstr"
-                      length="38"
+                      dataType="i4"
                       lineageId="Package\Base Migration from Oracle\Join by Operation.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]"
                       name="PROJECTED_CANCEL_AMOUNT">
                       <properties>
@@ -3166,7 +3163,7 @@ FROM LMSADM1.DSBPRJBS</property>
                       refId="Package\Base Migration from Oracle\Merge Join.Inputs[Merge Join Left Input].Columns[CONTRACT_NUMBER]"
                       cachedComparisonFlags="4"
                       cachedDataType="wstr"
-                      cachedLength="50"
+                      cachedLength="24"
                       cachedName="CONTRACT_NUMBER"
                       cachedSortKeyPosition="1"
                       lineageId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output].Columns[CONTRACT_NUMBER]" />
@@ -3178,8 +3175,7 @@ FROM LMSADM1.DSBPRJBS</property>
                       lineageId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
                     <inputColumn
                       refId="Package\Base Migration from Oracle\Merge Join.Inputs[Merge Join Left Input].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      cachedDataType="wstr"
-                      cachedLength="38"
+                      cachedDataType="i4"
                       cachedName="PROJECTED_CANCEL_AMOUNT"
                       lineageId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]" />
                   </inputColumns>
@@ -3247,7 +3243,7 @@ FROM LMSADM1.DSBPRJBS</property>
                       refId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[CONTRACT_NUMBER]"
                       comparisonFlags="4"
                       dataType="wstr"
-                      length="50"
+                      length="24"
                       lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[CONTRACT_NUMBER]"
                       name="CONTRACT_NUMBER"
                       sortKeyPosition="1">
@@ -3261,8 +3257,7 @@ FROM LMSADM1.DSBPRJBS</property>
                     </outputColumn>
                     <outputColumn
                       refId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      dataType="wstr"
-                      length="38"
+                      dataType="i4"
                       lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]"
                       name="PROJECTED_CANCEL_AMOUNT">
                       <properties>
@@ -3425,8 +3420,7 @@ FROM LMSADM1.DSBPRJBS</property>
                       lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[DISBURSEMENT_PROJECTION_BASIS_ID]" />
                     <inputColumn
                       refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      cachedDataType="wstr"
-                      cachedLength="38"
+                      cachedDataType="i4"
                       cachedName="PROJECTED_CANCEL_AMOUNT"
                       externalMetadataColumnId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
                       lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]" />
@@ -3436,12 +3430,6 @@ FROM LMSADM1.DSBPRJBS</property>
                       cachedName="FK_OPERATION_ID"
                       externalMetadataColumnId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_OPERATION_ID]"
                       lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[FK_OPERATION_ID]" />
-                    <inputColumn
-                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[CONTRACT_ID]"
-                      cachedDataType="i4"
-                      cachedName="CONTRACT_ID"
-                      externalMetadataColumnId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRACT_ID]"
-                      lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[CONTRACT_ID]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -3457,8 +3445,7 @@ FROM LMSADM1.DSBPRJBS</property>
                       refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
                       dataType="numeric"
                       name="PLANNED_CANCELED_AMOUNT"
-                      precision="18"
-                      scale="2" />
+                      precision="18" />
                     <externalMetadataColumn
                       refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
                       dataType="dbTimeStamp"
@@ -3478,9 +3465,9 @@ FROM LMSADM1.DSBPRJBS</property>
                       length="50"
                       name="MODIFIED_BY" />
                     <externalMetadataColumn
-                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRACT_ID]"
+                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
                       dataType="i4"
-                      name="FK_CONTRACT_ID" />
+                      name="FK_CONTRCT_ID" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -3759,8 +3746,7 @@ FROM LMSADM1.DSBPRJBS</property>
                       lineageId="Package\Base Migration from Oracle\Join by Operation.Outputs[Merge Join Output].Columns[OPERATION_ID]" />
                     <inputColumn
                       refId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      cachedDataType="wstr"
-                      cachedLength="38"
+                      cachedDataType="i4"
                       cachedName="PROJECTED_CANCEL_AMOUNT"
                       externalMetadataColumnId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
                       lineageId="Package\Base Migration from Oracle\Join by Operation.Outputs[Merge Join Output].Columns[PROJECTED_CANCEL_AMOUNT]" />
@@ -3874,7 +3860,7 @@ FROM LMSADM1.DSBPRJBS</property>
                     <inputColumn
                       refId="Package\Base Migration from Oracle\Sort Source by Contract.Inputs[Sort Input].Columns[CONTRACT_NUMBER]"
                       cachedDataType="wstr"
-                      cachedLength="50"
+                      cachedLength="24"
                       cachedName="CONTRACT_NUMBER"
                       lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]">
                       <properties>
@@ -3890,8 +3876,7 @@ FROM LMSADM1.DSBPRJBS</property>
                     </inputColumn>
                     <inputColumn
                       refId="Package\Base Migration from Oracle\Sort Source by Contract.Inputs[Sort Input].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      cachedDataType="wstr"
-                      cachedLength="38"
+                      cachedDataType="i4"
                       cachedName="PROJECTED_CANCEL_AMOUNT"
                       lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]">
                       <properties>
@@ -3950,7 +3935,7 @@ FROM LMSADM1.DSBPRJBS</property>
                       refId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output].Columns[CONTRACT_NUMBER]"
                       comparisonFlags="4"
                       dataType="wstr"
-                      length="50"
+                      length="24"
                       lineageId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output].Columns[CONTRACT_NUMBER]"
                       name="CONTRACT_NUMBER"
                       sortKeyPosition="1">
@@ -3964,8 +3949,7 @@ FROM LMSADM1.DSBPRJBS</property>
                     </outputColumn>
                     <outputColumn
                       refId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      dataType="wstr"
-                      length="38"
+                      dataType="i4"
                       lineageId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]"
                       name="PROJECTED_CANCEL_AMOUNT">
                       <properties>
@@ -4054,8 +4038,7 @@ FROM LMSADM1.DSBPRJBS</property>
                     </inputColumn>
                     <inputColumn
                       refId="Package\Base Migration from Oracle\Sort Source by Operation.Inputs[Sort Input].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      cachedDataType="wstr"
-                      cachedLength="38"
+                      cachedDataType="i4"
                       cachedName="PROJECTED_CANCEL_AMOUNT"
                       lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]">
                       <properties>
@@ -4072,7 +4055,7 @@ FROM LMSADM1.DSBPRJBS</property>
                     <inputColumn
                       refId="Package\Base Migration from Oracle\Sort Source by Operation.Inputs[Sort Input].Columns[CONTRACT_NUMBER]"
                       cachedDataType="wstr"
-                      cachedLength="50"
+                      cachedLength="24"
                       cachedName="CONTRACT_NUMBER"
                       lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]">
                       <properties>
@@ -4128,8 +4111,7 @@ FROM LMSADM1.DSBPRJBS</property>
                     </outputColumn>
                     <outputColumn
                       refId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]"
-                      dataType="wstr"
-                      length="38"
+                      dataType="i4"
                       lineageId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output].Columns[PROJECTED_CANCEL_AMOUNT]"
                       name="PROJECTED_CANCEL_AMOUNT">
                       <properties>
@@ -4143,7 +4125,7 @@ FROM LMSADM1.DSBPRJBS</property>
                     <outputColumn
                       refId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output].Columns[CONTRACT_NUMBER]"
                       dataType="wstr"
-                      length="50"
+                      length="24"
                       lineageId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output].Columns[CONTRACT_NUMBER]"
                       name="CONTRACT_NUMBER">
                       <properties>
@@ -4576,7 +4558,7 @@ FROM LMSADM1.DSBPRJBS</property>
                       refId="Package\Base Migration from Oracle\Union All.Inputs[Union All Input 2].Columns[CONTRACT_NUMBER]"
                       cachedComparisonFlags="4"
                       cachedDataType="wstr"
-                      cachedLength="50"
+                      cachedLength="24"
                       cachedName="CONTRACT_NUMBER"
                       cachedSortKeyPosition="1"
                       lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[CONTRACT_NUMBER]">
@@ -4661,19 +4643,19 @@ FROM LMSADM1.DSBPRJBS</property>
               startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[No Match]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
-              endId="Package\Base Migration from Oracle\Conditional Split 1.Inputs[Conditional Split Input]"
-              name="OLE DB Source Output"
-              startId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
               endId="Package\Base Migration from Oracle\Sort Target by Operation.Inputs[Sort Input]"
               name="OLE DB Source Output"
               startId="Package\Base Migration from Oracle\Convergence Operations to Join.Outputs[OLE DB Source Output]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
               endId="Package\Base Migration from Oracle\Sort Target by Contract.Inputs[Sort Input]"
               name="OLE DB Source Output"
               startId="Package\Base Migration from Oracle\Convergence Contracts to Join.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+              endId="Package\Base Migration from Oracle\Conditional Split 1.Inputs[Conditional Split Input]"
+              name="OLE DB Source Output"
+              startId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[Operation Level]"
               endId="Package\Base Migration from Oracle\Sort Source by Operation.Inputs[Sort Input]"
@@ -4701,14 +4683,14 @@ FROM LMSADM1.DSBPRJBS</property>
               startId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[To Migrate1]"
-              endId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input]"
-              name="To Migrate"
-              startId="Package\Base Migration from Oracle\Conditional Split 2.Outputs[To Migrate]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
               endId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
               name="To Migrate"
               startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[To Migrate]" />
+            <path
+              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
+              endId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input]"
+              name="To Migrate"
+              startId="Package\Base Migration from Oracle\Conditional Split 2.Outputs[To Migrate]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[Union All Output 1]"
               endId="Package\Base Migration from Oracle\Error Message.Inputs[Derived Column Input]"
@@ -5397,13 +5379,13 @@ FROM LMSADM1.DSBPRJ</property>
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
                       refId="Package\Projections Migration from Oracle\Disbursement Projections.Outputs[OLE DB Source Output].Columns[AMOUNT]"
-                      dataType="wstr"
+                      dataType="numeric"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
                       externalMetadataColumnId="Package\Projections Migration from Oracle\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[AMOUNT]"
-                      length="38"
                       lineageId="Package\Projections Migration from Oracle\Disbursement Projections.Outputs[OLE DB Source Output].Columns[AMOUNT]"
                       name="AMOUNT"
+                      precision="10"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
@@ -5425,9 +5407,9 @@ FROM LMSADM1.DSBPRJ</property>
                       precision="2" />
                     <externalMetadataColumn
                       refId="Package\Projections Migration from Oracle\Disbursement Projections.Outputs[OLE DB Source Output].ExternalColumns[AMOUNT]"
-                      dataType="wstr"
-                      length="38"
-                      name="AMOUNT" />
+                      dataType="numeric"
+                      name="AMOUNT"
+                      precision="10" />
                   </externalMetadataColumns>
                 </output>
                 <output
@@ -5455,10 +5437,10 @@ FROM LMSADM1.DSBPRJ</property>
                       precision="2" />
                     <outputColumn
                       refId="Package\Projections Migration from Oracle\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[AMOUNT]"
-                      dataType="wstr"
-                      length="38"
+                      dataType="numeric"
                       lineageId="Package\Projections Migration from Oracle\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[AMOUNT]"
-                      name="AMOUNT" />
+                      name="AMOUNT"
+                      precision="10" />
                     <outputColumn
                       refId="Package\Projections Migration from Oracle\Disbursement Projections.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -5616,7 +5598,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DISBURSEMENT_PROJECTION_BASE_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FK_OPERATION_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FK_CONTRCT_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PLANNED_CANCELED_AMOUNT" dataType="DT_NUMERIC" length="0" precision="18" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CREATED" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CREATED_BY" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MODIFIED" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MODIFIED_BY" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="DISBURSEMENT_PROJECTION_BASE_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FK_OPERATION_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FK_CONTRACT_ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PLANNED_CANCELED_AMOUNT" dataType="DT_NUMERIC" length="0" precision="18" scale="2" codePage="0"/&gt;&lt;referenceColumn name="CREATED" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CREATED_BY" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MODIFIED" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MODIFIED_BY" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
@@ -5793,9 +5775,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
                       lineageId="Package\Projections Migration from Oracle\Disbursement Projections.Outputs[OLE DB Source Output].Columns[MONTH]" />
                     <inputColumn
                       refId="Package\Projections Migration from Oracle\Push Disbursement Projections.Inputs[OLE DB Destination Input].Columns[AMOUNT]"
-                      cachedDataType="wstr"
-                      cachedLength="38"
+                      cachedDataType="numeric"
                       cachedName="AMOUNT"
+                      cachedPrecision="10"
                       externalMetadataColumnId="Package\Projections Migration from Oracle\Push Disbursement Projections.Inputs[OLE DB Destination Input].ExternalColumns[AMOUNT]"
                       lineageId="Package\Projections Migration from Oracle\Disbursement Projections.Outputs[OLE DB Source Output].Columns[AMOUNT]" />
                     <inputColumn
@@ -6191,7 +6173,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1 1]"
-          TopLeft="608.375,157">
+          TopLeft="608.25,157">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -6323,6 +6305,30 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           Size="155,42"
           Id="Package\Base Migration from MSSQL\Conditional Split"
           TopLeft="570,82" />
+        <EdgeLayout
+          Id="Package\Base Migration from MSSQL.Paths[Operation Level]"
+          TopLeft="570,103.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-90.5,0"
+              Start="0,0"
+              End="-83,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-83,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-76.6246484375,5,70.249296875,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Base Migration from MSSQL.Paths[OLE DB Source Output2]"
           TopLeft="1134.5,124.25">
@@ -6563,30 +6569,6 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from MSSQL.Paths[Operation Level]"
-          TopLeft="570,103.75">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-90.5,0"
-              Start="0,0"
-              End="-83,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-83,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-76.6246484375,5,70.249296875,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
@@ -6656,29 +6638,29 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
       <GraphLayout
         Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="229,42"
-          Id="Package\Base Migration from Oracle\Convergence Operations to Join"
-          TopLeft="27.25,82.75" />
-        <NodeLayout
           Size="135,42"
           Id="Package\Base Migration from Oracle\Push Issues"
           TopLeft="580,444" />
         <NodeLayout
-          Size="164,42"
-          Id="Package\Base Migration from Oracle\Conditional Split 3"
-          TopLeft="834.25,252" />
-        <NodeLayout
-          Size="121,42"
-          Id="Package\Base Migration from Oracle\Union All"
-          TopLeft="589,248" />
+          Size="196,42"
+          Id="Package\Base Migration from Oracle\Sort Target by Operation"
+          TopLeft="39,167.5" />
         <NodeLayout
           Size="190,42"
           Id="Package\Base Migration from Oracle\Sort Target by Contract"
           TopLeft="1055,166.5" />
         <NodeLayout
           Size="164,42"
-          Id="Package\Base Migration from Oracle\Conditional Split 1"
-          TopLeft="570,82" />
+          Id="Package\Base Migration from Oracle\Conditional Split 3"
+          TopLeft="834.25,252" />
+        <NodeLayout
+          Size="229,42"
+          Id="Package\Base Migration from Oracle\Convergence Operations to Join"
+          TopLeft="27.25,82.75" />
+        <NodeLayout
+          Size="234,42"
+          Id="Package\Base Migration from Oracle\Push Operation Level Projections"
+          TopLeft="260.5,352" />
         <NodeLayout
           Size="224,42"
           Id="Package\Base Migration from Oracle\Disbursement Projections Base"
@@ -6688,21 +6670,13 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           Id="Package\Base Migration from Oracle\Join by Operation"
           TopLeft="295.27309893704,167.5" />
         <NodeLayout
-          Size="234,42"
-          Id="Package\Base Migration from Oracle\Push Operation Level Projections"
-          TopLeft="260.5,352" />
-        <NodeLayout
-          Size="164,42"
-          Id="Package\Base Migration from Oracle\Conditional Split 2"
-          TopLeft="292.25,250" />
-        <NodeLayout
           Size="191,42"
           Id="Package\Base Migration from Oracle\Sort Source by Contract"
           TopLeft="824,81.5" />
         <NodeLayout
-          Size="196,42"
-          Id="Package\Base Migration from Oracle\Sort Target by Operation"
-          TopLeft="39,167.5" />
+          Size="164,42"
+          Id="Package\Base Migration from Oracle\Conditional Split 2"
+          TopLeft="292.25,250" />
         <NodeLayout
           Size="146,42"
           Id="Package\Base Migration from Oracle\Error Message"
@@ -6712,223 +6686,27 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           Id="Package\Base Migration from Oracle\Merge Join"
           TopLeft="858,170" />
         <NodeLayout
-          Size="222,42"
-          Id="Package\Base Migration from Oracle\Convergence Contracts to Join"
-          TopLeft="1031.75,82.25" />
+          Size="121,42"
+          Id="Package\Base Migration from Oracle\Union All"
+          TopLeft="589,248" />
         <NodeLayout
           Size="227,42"
           Id="Package\Base Migration from Oracle\Push Contract Level Projections"
           TopLeft="805.5,352.5" />
         <NodeLayout
+          Size="222,42"
+          Id="Package\Base Migration from Oracle\Convergence Contracts to Join"
+          TopLeft="1031.75,82.25" />
+        <NodeLayout
           Size="198,42"
           Id="Package\Base Migration from Oracle\Sort Source by Operation"
           TopLeft="276,83.5" />
+        <NodeLayout
+          Size="164,42"
+          Id="Package\Base Migration from Oracle\Conditional Split 1"
+          TopLeft="570,82" />
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Union All Output 1]"
-          TopLeft="648.5,290">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,63.5"
-              Start="0,0"
-              End="0,56">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,56" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[To Migrate1]"
-          TopLeft="375.875,292">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,60"
-              Start="0,0"
-              End="0,52.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-24.56244140625,20.5576171875,49.1248828125,11.384765625"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[To Migrate]"
-          TopLeft="917.625,294">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,58.5"
-              Start="0,0"
-              End="0,51">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,51" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-24.56244140625,19.8076171875,49.1248828125,11.384765625"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Sort Output3]"
-          TopLeft="921.25,123.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,46.5"
-              Start="0,0"
-              End="0,39">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,39" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Sort Output2]"
-          TopLeft="375.38654946852,125.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,42"
-              Start="0,0"
-              End="0,34.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,34.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Sort Output1]"
-          TopLeft="235.5,188.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="59.7730989370401,0"
-              Start="0,0"
-              End="52.2730989370401,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="52.2730989370401,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Sort Output]"
-          TopLeft="1055,189.25">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-67,0"
-              Start="0,0"
-              End="-59.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-59.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Operation Level]"
-          TopLeft="570,103.75">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-96,0"
-              Start="0,0"
-              End="-88.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-88.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-79.3746484375,5,70.249296875,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
-          TopLeft="139.5,124.75">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,42.75"
-              Start="0,0"
-              End="0,35.25">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,35.25" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
           TopLeft="653.25,47.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6941,28 +6719,6 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,27" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
-          TopLeft="1146.375,124.25">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,42.25"
-              Start="0,0"
-              End="0,34.75">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,34.75" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -7109,11 +6865,250 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[Union All Output 1]"
+          TopLeft="648.5,290">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.5"
+              Start="0,0"
+              End="0,56">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[To Migrate1]"
+          TopLeft="917.625,294">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.5"
+              Start="0,0"
+              End="0,51">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-24.56244140625,19.8076171875,49.1248828125,11.384765625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[To Migrate]"
+          TopLeft="375.875,292">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-24.56244140625,20.5576171875,49.1248828125,11.384765625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[Sort Output3]"
+          TopLeft="921.25,123.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.5"
+              Start="0,0"
+              End="0,39">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[Sort Output2]"
+          TopLeft="375.38654946852,125.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42"
+              Start="0,0"
+              End="0,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[Sort Output1]"
+          TopLeft="235.5,188.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="59.7730989370401,0"
+              Start="0,0"
+              End="52.2730989370401,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="52.2730989370401,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[Sort Output]"
+          TopLeft="1055,189.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-67,0"
+              Start="0,0"
+              End="-59.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-59.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[Operation Level]"
+          TopLeft="570,103.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-96,0"
+              Start="0,0"
+              End="-88.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-88.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-79.3746484375,5,70.249296875,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
+          TopLeft="1146.375,124.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.25"
+              Start="0,0"
+              End="0,34.75">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.75" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
+          TopLeft="139.5,124.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.75"
+              Start="0,0"
+              End="0,35.25">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
     design-time-name="Package\Base Migration from Oracle\Push Issues">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Base Migration from Oracle\Push Operation Level Projections">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -7134,7 +7129,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Base Migration from Oracle\Push Operation Level Projections">
+    design-time-name="Package\Base Migration from Oracle\Push Contract Level Projections">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -7151,19 +7146,6 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Base Migration from Oracle\Push Contract Level Projections">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
