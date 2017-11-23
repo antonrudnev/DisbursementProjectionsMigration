@@ -12,8 +12,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DisbursementProjectionsDataMigration"
   DTS:PackageType="5"
-  DTS:VersionBuild="88"
-  DTS:VersionGUID="{4035D7D3-F9EE-4669-8668-FE1E6D6C6BE6}">
+  DTS:VersionBuild="93"
+  DTS:VersionGUID="{72DDAC30-500B-4485-862C-BF38D2EC8713}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -3430,6 +3430,12 @@ FROM LMSADM1.DSBPRJBS</property>
                       cachedName="FK_OPERATION_ID"
                       externalMetadataColumnId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_OPERATION_ID]"
                       lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[FK_OPERATION_ID]" />
+                    <inputColumn
+                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].Columns[CONTRACT_ID]"
+                      cachedDataType="i4"
+                      cachedName="CONTRACT_ID"
+                      externalMetadataColumnId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRACT_ID]"
+                      lineageId="Package\Base Migration from Oracle\Merge Join.Outputs[Merge Join Output].Columns[CONTRACT_ID]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -3445,7 +3451,8 @@ FROM LMSADM1.DSBPRJBS</property>
                       refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[PLANNED_CANCELED_AMOUNT]"
                       dataType="numeric"
                       name="PLANNED_CANCELED_AMOUNT"
-                      precision="18" />
+                      precision="18"
+                      scale="2" />
                     <externalMetadataColumn
                       refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[CREATED]"
                       dataType="dbTimeStamp"
@@ -3465,9 +3472,9 @@ FROM LMSADM1.DSBPRJBS</property>
                       length="50"
                       name="MODIFIED_BY" />
                     <externalMetadataColumn
-                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRCT_ID]"
+                      refId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input].ExternalColumns[FK_CONTRACT_ID]"
                       dataType="i4"
-                      name="FK_CONTRCT_ID" />
+                      name="FK_CONTRACT_ID" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -3890,23 +3897,6 @@ FROM LMSADM1.DSBPRJBS</property>
                           name="NewSortKeyPosition">0</property>
                       </properties>
                     </inputColumn>
-                    <inputColumn
-                      refId="Package\Base Migration from Oracle\Sort Source by Contract.Inputs[Sort Input].Columns[PROJECT_NUMBER]"
-                      cachedDataType="wstr"
-                      cachedLength="9"
-                      cachedName="PROJECT_NUMBER"
-                      lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECT_NUMBER]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the comparison options for character data."
-                          name="NewComparisonFlags">0</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
-                      </properties>
-                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -3958,20 +3948,6 @@ FROM LMSADM1.DSBPRJBS</property>
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
                           name="SortColumnId">#{Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]}</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output].Columns[PROJECT_NUMBER]"
-                      dataType="wstr"
-                      length="9"
-                      lineageId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output].Columns[PROJECT_NUMBER]"
-                      name="PROJECT_NUMBER">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECT_NUMBER]}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
@@ -4052,23 +4028,6 @@ FROM LMSADM1.DSBPRJBS</property>
                           name="NewSortKeyPosition">0</property>
                       </properties>
                     </inputColumn>
-                    <inputColumn
-                      refId="Package\Base Migration from Oracle\Sort Source by Operation.Inputs[Sort Input].Columns[CONTRACT_NUMBER]"
-                      cachedDataType="wstr"
-                      cachedLength="24"
-                      cachedName="CONTRACT_NUMBER"
-                      lineageId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]">
-                      <properties>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the comparison options for character data."
-                          name="NewComparisonFlags">0</property>
-                        <property
-                          dataType="System.Int32"
-                          description="Specifies the sort order of the column."
-                          name="NewSortKeyPosition">0</property>
-                      </properties>
-                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -4120,20 +4079,6 @@ FROM LMSADM1.DSBPRJBS</property>
                           dataType="System.Int32"
                           description="Specifies the lineage identifier of the input column that is associated with this output column."
                           name="SortColumnId">#{Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[PROJECTED_CANCEL_AMOUNT]}</property>
-                      </properties>
-                    </outputColumn>
-                    <outputColumn
-                      refId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output].Columns[CONTRACT_NUMBER]"
-                      dataType="wstr"
-                      length="24"
-                      lineageId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output].Columns[CONTRACT_NUMBER]"
-                      name="CONTRACT_NUMBER">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.Int32"
-                          description="Specifies the lineage identifier of the input column that is associated with this output column."
-                          name="SortColumnId">#{Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output].Columns[CONTRACT_NUMBER]}</property>
                       </properties>
                     </outputColumn>
                   </outputColumns>
