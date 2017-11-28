@@ -968,6 +968,7 @@
         <RepeatColumnHeaders>true</RepeatColumnHeaders>
         <FixedColumnHeaders>true</FixedColumnHeaders>
         <DataSetName>Projections</DataSetName>
+        <Top>0.36944in</Top>
         <Height>1.25in</Height>
         <Width>5.5in</Width>
         <Style>
@@ -976,12 +977,45 @@
           </Border>
         </Style>
       </Tablix>
+      <Textbox Name="Textbox342">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="Disbursement Projections Data Migration as of " + First(Fields!MIGRATION_STAMP.Value, "MIGRATION_STAMP")</Value>
+                <Style>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox342</rd:DefaultName>
+        <Height>0.3in</Height>
+        <Width>5.5in</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
     </ReportItems>
-    <Height>1.25in</Height>
+    <Height>1.61944in</Height>
     <Style />
   </Body>
   <Width>5.5in</Width>
   <Page>
+    <InteractiveHeight>11in</InteractiveHeight>
+    <InteractiveWidth>8.5in</InteractiveWidth>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
     <TopMargin>1in</TopMargin>
@@ -1159,7 +1193,7 @@ ORDER BY OPERATION_NUMBER</CommandText>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT DISTINCT ISNULL(CONTRACT_ID, -1) AS CONTRACT_ID
-	,ISNULL(CONTRACT_NUMBER, ' No Contract') AS CONTRACT_NUMBER
+	,ISNULL(CONTRACT_NUMBER, ' No Contracts') AS CONTRACT_NUMBER
 FROM DISBURSEMENT_PROJECTION_BASE
 JOIN OPERATION ON OPERATION_ID = FK_OPERATION_ID
 JOIN OPERATION_DATA ON OPERATION_DATA_ID = FK_OPERATION_DATA_ID
@@ -1178,6 +1212,19 @@ ORDER BY CONTRACT_NUMBER</CommandText>
         <Field Name="CONTRACT_NUMBER">
           <DataField>CONTRACT_NUMBER</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="MIGRATION_STAMP">
+      <Query>
+        <DataSourceName>Convergence</DataSourceName>
+        <CommandText>SELECT MAX(CREATED) AS MIGRATION_STAMP
+FROM DISBURSEMENT_PROJECTION_BASE</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="MIGRATION_STAMP">
+          <DataField>MIGRATION_STAMP</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
