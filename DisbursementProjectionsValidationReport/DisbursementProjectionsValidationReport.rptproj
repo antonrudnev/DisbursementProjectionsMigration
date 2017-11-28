@@ -5,8 +5,20 @@
   <DataSets />
   <Reports>
     <ProjectItem>
-      <Name>DisbursementProjectionsValidation.rdl</Name>
-      <FullPath>DisbursementProjectionsValidation.rdl</FullPath>
+      <Name>DisbProjValidation_COUNTRY_detailed.rdl</Name>
+      <FullPath>DisbProjValidation_COUNTRY_detailed.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>DisbProjValidation_SECTOR_detailed.rdl</Name>
+      <FullPath>DisbProjValidation_SECTOR_detailed.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>DisbProjValidation_COUNTRY.rdl</Name>
+      <FullPath>DisbProjValidation_COUNTRY.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>DisbProjValidation_SECTOR.rdl</Name>
+      <FullPath>DisbProjValidation_SECTOR.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
