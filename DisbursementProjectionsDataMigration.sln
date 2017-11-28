@@ -5,13 +5,34 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "DisbursementProjectionsDataMigration", "DisbursementProjectionsDataMigration\DisbursementProjectionsDataMigration.dtproj", "{E594AFAE-96C7-4ED7-A372-DDC78968225D}"
 EndProject
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "DisbursementProjectionsValidationReport", "DisbursementProjectionsValidationReport\DisbursementProjectionsValidationReport.rptproj", "{B96832A2-C809-46D7-A66D-CC126B4777CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Default = Debug|Default
+		DebugLocal|Default = DebugLocal|Default
 		Development|Default = Development|Default
+		Release|Default = Release|Default
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E594AFAE-96C7-4ED7-A372-DDC78968225D}.Debug|Default.ActiveCfg = Development
+		{E594AFAE-96C7-4ED7-A372-DDC78968225D}.Debug|Default.Build.0 = Development
+		{E594AFAE-96C7-4ED7-A372-DDC78968225D}.DebugLocal|Default.ActiveCfg = Development
+		{E594AFAE-96C7-4ED7-A372-DDC78968225D}.DebugLocal|Default.Build.0 = Development
 		{E594AFAE-96C7-4ED7-A372-DDC78968225D}.Development|Default.ActiveCfg = Development
 		{E594AFAE-96C7-4ED7-A372-DDC78968225D}.Development|Default.Build.0 = Development
+		{E594AFAE-96C7-4ED7-A372-DDC78968225D}.Release|Default.ActiveCfg = Development
+		{E594AFAE-96C7-4ED7-A372-DDC78968225D}.Release|Default.Build.0 = Development
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.Debug|Default.ActiveCfg = Debug
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.Debug|Default.Build.0 = Debug
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.Debug|Default.Deploy.0 = Debug
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.DebugLocal|Default.ActiveCfg = DebugLocal
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.DebugLocal|Default.Build.0 = DebugLocal
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.Development|Default.ActiveCfg = DebugLocal
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.Development|Default.Build.0 = DebugLocal
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.Release|Default.ActiveCfg = Release
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.Release|Default.Build.0 = Release
+		{B96832A2-C809-46D7-A66D-CC126B4777CD}.Release|Default.Deploy.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

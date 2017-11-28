@@ -12,8 +12,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DisbursementProjectionsDataMigration"
   DTS:PackageType="5"
-  DTS:VersionBuild="93"
-  DTS:VersionGUID="{72DDAC30-500B-4485-862C-BF38D2EC8713}">
+  DTS:VersionBuild="95"
+  DTS:VersionGUID="{A1E24E92-FBAD-4CB0-BE79-788BEA9144DA}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -4588,19 +4588,19 @@ FROM LMSADM1.DSBPRJBS</property>
               startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[No Match]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
-              endId="Package\Base Migration from Oracle\Sort Target by Operation.Inputs[Sort Input]"
-              name="OLE DB Source Output"
-              startId="Package\Base Migration from Oracle\Convergence Operations to Join.Outputs[OLE DB Source Output]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
               endId="Package\Base Migration from Oracle\Sort Target by Contract.Inputs[Sort Input]"
               name="OLE DB Source Output"
               startId="Package\Base Migration from Oracle\Convergence Contracts to Join.Outputs[OLE DB Source Output]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
               endId="Package\Base Migration from Oracle\Conditional Split 1.Inputs[Conditional Split Input]"
               name="OLE DB Source Output"
               startId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+              endId="Package\Base Migration from Oracle\Sort Target by Operation.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Base Migration from Oracle\Convergence Operations to Join.Outputs[OLE DB Source Output]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[Operation Level]"
               endId="Package\Base Migration from Oracle\Sort Source by Operation.Inputs[Sort Input]"
@@ -4628,14 +4628,14 @@ FROM LMSADM1.DSBPRJBS</property>
               startId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[To Migrate1]"
-              endId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
-              name="To Migrate"
-              startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[To Migrate]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
               endId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input]"
               name="To Migrate"
               startId="Package\Base Migration from Oracle\Conditional Split 2.Outputs[To Migrate]" />
+            <path
+              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
+              endId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
+              name="To Migrate"
+              startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[To Migrate]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[Union All Output 1]"
               endId="Package\Base Migration from Oracle\Error Message.Inputs[Derived Column Input]"
@@ -6651,7 +6651,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           Id="Package\Base Migration from Oracle\Conditional Split 1"
           TopLeft="570,82" />
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
           TopLeft="653.25,47.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6833,7 +6833,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[To Migrate1]"
+          Id="Package\Base Migration from Oracle.Paths[To Migrate]"
           TopLeft="917.625,294">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6857,7 +6857,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[To Migrate]"
+          Id="Package\Base Migration from Oracle.Paths[To Migrate1]"
           TopLeft="375.875,292">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -6993,7 +6993,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
           TopLeft="1146.375,124.25">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -7015,7 +7015,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
           TopLeft="139.5,124.75">
           <EdgeLayout.Curve>
             <mssgle:Curve
