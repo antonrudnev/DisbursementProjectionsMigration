@@ -59,18 +59,6 @@
                         </TextRuns>
                         <Style />
                       </Paragraph>
-                      <Paragraph>
-                        <TextRuns>
-                          <TextRun>
-                            <Value />
-                            <Style>
-                              <FontWeight>Bold</FontWeight>
-                              <Color>White</Color>
-                            </Style>
-                          </TextRun>
-                        </TextRuns>
-                        <Style />
-                      </Paragraph>
                     </Paragraphs>
                     <rd:DefaultName>Textbox171</rd:DefaultName>
                     <Style>
@@ -98,13 +86,13 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.8in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.9in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1in</Width>
+              <Width>0.8in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1in</Width>
@@ -708,6 +696,15 @@
                     <GroupExpressions>
                       <GroupExpression>=Fields!MONTH.Value</GroupExpression>
                     </GroupExpressions>
+                    <Filters>
+                      <Filter>
+                        <FilterExpression>=IsNothing(Fields!MONTH.Value)</FilterExpression>
+                        <Operator>Equal</Operator>
+                        <FilterValues>
+                          <FilterValue DataType="Boolean">false</FilterValue>
+                        </FilterValues>
+                      </Filter>
+                    </Filters>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
@@ -775,7 +772,7 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>1in</Size>
+                    <Size>0.9in</Size>
                     <CellContents>
                       <Textbox Name="DEPARTMENT">
                         <CanGrow>true</CanGrow>
@@ -820,7 +817,7 @@
                       <TablixMembers>
                         <TablixMember>
                           <TablixHeader>
-                            <Size>0.9in</Size>
+                            <Size>0.7in</Size>
                             <CellContents>
                               <Textbox Name="DIVISION">
                                 <CanGrow>true</CanGrow>
@@ -870,7 +867,7 @@
                     </TablixMember>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.9in</Size>
+                        <Size>0.7in</Size>
                         <CellContents>
                           <Textbox Name="Textbox341">
                             <CanGrow>true</CanGrow>
@@ -915,7 +912,7 @@
         <DataSetName>Projections</DataSetName>
         <Top>0.36944in</Top>
         <Height>1.25in</Height>
-        <Width>6.55in</Width>
+        <Width>5.75in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1011,7 +1008,7 @@ JOIN CONVERGENCE_MASTER_DATA AS COUNTRY ON COUNTRY.CONVERGENCE_MASTER_DATA_ID = 
 JOIN CONVERGENCE_MASTER_DATA AS DEPARTMENT ON DEPARTMENT.CONVERGENCE_MASTER_DATA_ID = FK_DEPARTMENT_ID
 JOIN CONVERGENCE_MASTER_DATA AS DIVISION ON DIVISION.CONVERGENCE_MASTER_DATA_ID = FK_DIVISION_ID
 LEFT JOIN CONTRACT ON CONTRACT_ID = FK_CONTRACT_ID
-JOIN DISBURSEMENT_PROJECTION ON FK_DISBURSEMENT_PROJECTION_BASE_ID = DISBURSEMENT_PROJECTION_BASE_ID
+LEFT JOIN DISBURSEMENT_PROJECTION ON FK_DISBURSEMENT_PROJECTION_BASE_ID = DISBURSEMENT_PROJECTION_BASE_ID
 WHERE FK_DEPARTMENT_ID IN (@SectorDepartment)
 	AND FK_DIVISION_ID IN (@Division)
 	AND OPERATION_ID IN (@Operation)

@@ -505,7 +505,7 @@
               <TablixMembers>
                 <TablixMember>
                   <TablixHeader>
-                    <Size>1in</Size>
+                    <Size>0.9in</Size>
                     <CellContents>
                       <Textbox Name="DEPARTMENT">
                         <CanGrow>true</CanGrow>
@@ -550,7 +550,7 @@
                       <TablixMembers>
                         <TablixMember>
                           <TablixHeader>
-                            <Size>0.9in</Size>
+                            <Size>0.7in</Size>
                             <CellContents>
                               <Textbox Name="DIVISION">
                                 <CanGrow>true</CanGrow>
@@ -588,7 +588,7 @@
                     </TablixMember>
                     <TablixMember>
                       <TablixHeader>
-                        <Size>0.9in</Size>
+                        <Size>0.7in</Size>
                         <CellContents>
                           <Textbox Name="Textbox341">
                             <CanGrow>true</CanGrow>
@@ -630,7 +630,7 @@
             </TablixMember>
             <TablixMember>
               <TablixHeader>
-                <Size>1.9in</Size>
+                <Size>1.6in</Size>
                 <CellContents>
                   <Textbox Name="Textbox49">
                     <CanGrow>true</CanGrow>
@@ -674,7 +674,7 @@
         <DataSetName>Projections</DataSetName>
         <Top>0.36944in</Top>
         <Height>1.25in</Height>
-        <Width>3.55in</Width>
+        <Width>3.25in</Width>
         <Style>
           <Border>
             <Style>None</Style>
