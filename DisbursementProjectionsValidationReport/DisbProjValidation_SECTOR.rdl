@@ -729,10 +729,7 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="Convergence">
-      <ConnectionProperties>
-        <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=AZDDBE01\AZSTGOPESINST2;Initial Catalog=OPERATIONS_DP3_WAS</ConnectString>
-      </ConnectionProperties>
+      <DataSourceReference>Convergence</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>4d006aab-1a52-4ae6-be71-d27a2f1ce8c9</rd:DataSourceID>
     </DataSource>
@@ -988,7 +985,7 @@ FROM DISBURSEMENT_PROJECTION_BASE</CommandText>
           <ValueField>OPERATION_ID</ValueField>
         </DataSetReference>
       </DefaultValue>
-      <Prompt>Operation Number</Prompt>
+      <Prompt>Operations</Prompt>
       <ValidValues>
         <DataSetReference>
           <DataSetName>Operations</DataSetName>
