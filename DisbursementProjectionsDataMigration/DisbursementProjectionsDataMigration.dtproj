@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">WIN-OR6R6RQHOCL</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAiVi3mxNFJk2dfHJOD6kYPQAAAAACAAAAAAAQZgAAAAEAACAAAABphi+CKSY8HTsSO9Xkbm3sho8dgC6WNl/vjoaVLpVJsQAAAAAOgAAAAAIAACAAAAAeEvxWl8Ru7l292ErMWSUXLCVDbuRGxb140aixjutad5AAAACPX7GpTpuBW/eq7TjxAq6p7U9YJGeWHc51b7/qqj35+XbcCI7Ev7+6t84IEPAQAR6JHPOJGE5HDW64tg7ajJFSAUXSQ6YrLPoQP1ZSKBShNSCgYB66axqIP4GD0Jl8JUZxAfjLll928eHkbXOKkRFrcE8gmqq9sDCpC+rDgn9/sGQKUG5h/CIKz88hsGqhIllAAAAAZUNgD+KgugNmm89mOnXXMFg/LiWBXper27ybW/k0D76RJHtGoK5NGSIi0tBzSaDnu/+7KBoeLojePFsTOMI/ow==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAiVi3mxNFJk2dfHJOD6kYPQAAAAACAAAAAAAQZgAAAAEAACAAAABgXINtLAGs7CmEnc64XJ+dMLqHVeQjlipL3ND7HaVWxgAAAAAOgAAAAAIAACAAAAA+XGvCCCk8NNhGdMpmHYgjkI+ilDzsUQlXIZiJsljnGJAAAABKXvoodM6/lNh0vnqyH6kUcmBdUkPcCFxJVw+aof5l7m9nsBdltFz4Fz05b3B2CflL8ExXLDdAI1A+A92fNmyeQdtYv8aIGRhrmqCz3DwXNTpAKyDdMxuCqiX3nEvaMKKFd8FeEFyIyzMX5EgmIa1yCkjGd7BE4pcqWvVLAxlw9bU7IOnS4iypQGiJbdm1wxRAAAAAnqC2OUe9/RoHL/IX4SoX7kxxxRz3D8e2lbCTuUFEvlMJVZcTMMXtPtM6hRBeSprlc+U4iZcbc70bboB8Ma3y3Q==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -137,7 +137,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">Data Source=AZDDBE01\AZSTGOPESINST2;User ID=edwmigrationusr;Initial Catalog=OPERATIONS_DP3_WAS;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">Data Source=AZDDBE01\AZSTGOPESINST2;User ID=everisadm;Initial Catalog=OPERATIONS_DP3_WAS;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -211,7 +211,7 @@
                 <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="Value">edwmigrationusr</SSIS:Property>
+                <SSIS:Property SSIS:Name="Value">everisadm</SSIS:Property>
                 <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
               </SSIS:Properties>
             </SSIS:Parameter>
@@ -223,106 +223,16 @@
                 <SSIS:Property SSIS:Name="Name">DisbursementProjectionsDataMigration</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">78</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">102</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{AF86341A-62F3-4878-96F1-365B609C7085}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{150EC847-E0F3-460D-ADFC-2A434D314371}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
               </SSIS:Properties>
-              <SSIS:Parameters>
-                <SSIS:Parameter SSIS:Name="CM.TestMigrationSource.ConnectionString">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Data Source=WIN-OR6R6RQHOCL;User ID=everisuser;Initial Catalog=DISBURSEMENT_PROJECTIONS_INTERMEDIATE;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.TestMigrationSource.InitialCatalog">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">DISBURSEMENT_PROJECTIONS_INTERMEDIATE</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.TestMigrationSource.Password">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">1</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.TestMigrationSource.RetainSameConnection">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">false</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">3</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.TestMigrationSource.ServerName">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">WIN-OR6R6RQHOCL</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.TestMigrationSource.UserName">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">everisuser</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-              </SSIS:Parameters>
+              <SSIS:Parameters />
             </SSIS:PackageMetaData>
           </SSIS:PackageInfo>
         </SSIS:DeploymentInfo>
