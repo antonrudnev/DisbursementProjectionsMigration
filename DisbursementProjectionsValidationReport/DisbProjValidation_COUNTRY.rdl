@@ -74,7 +74,6 @@
                     </Style>
                   </Textbox>
                   <RowSpan>2</RowSpan>
-                  <rd:Selected>true</rd:Selected>
                 </CellContents>
               </TablixCornerCell>
             </TablixCornerRow>
@@ -109,7 +108,7 @@
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>#,0;(#,0)</Format>
+                                <Format>#,0,.0;(#,0,.0)</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -143,7 +142,7 @@
                             <TextRun>
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
-                                <Format>#,0;(#,0)</Format>
+                                <Format>#,0,.0;(#,0,.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -182,7 +181,7 @@
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>#,0;(#,0)</Format>
+                                <Format>#,0,.0;(#,0,.0)</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -217,7 +216,7 @@
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>#,0;(#,0)</Format>
+                                <Format>#,0,.0;(#,0,.0)</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -257,7 +256,7 @@
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>#,0;(#,0)</Format>
+                                <Format>#,0,.0;(#,0,.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -291,7 +290,7 @@
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>#,0;(#,0)</Format>
+                                <Format>#,0,.0;(#,0,.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -728,8 +727,6 @@
         </QueryParameters>
         <CommandText>SELECT COUNTRY_DEPARTMENT.CODE AS COUNTRY_DEPARTMENT
 	,COUNTRY.CODE AS COUNTRY
-	,DEPARTMENT.CODE AS DEPARTMENT
-	,DIVISION.CODE AS DIVISION
 	,OPERATION_NUMBER
 	,CONTRACT_NUMBER
 	,PLANNED_CANCELED_AMOUNT
@@ -739,10 +736,8 @@
 FROM DISBURSEMENT_PROJECTION_BASE
 JOIN OPERATION ON OPERATION_ID = FK_OPERATION_ID
 JOIN OPERATION_DATA ON OPERATION_DATA_ID = FK_OPERATION_DATA_ID
-JOIN CONVERGENCE_MASTER_DATA AS COUNTRY_DEPARTMENT ON COUNTRY_DEPARTMENT.CONVERGENCE_MASTER_DATA_ID = FK_COUNTRY_DEPARTMENT_ID
 JOIN CONVERGENCE_MASTER_DATA AS COUNTRY ON COUNTRY.CONVERGENCE_MASTER_DATA_ID = FK_COUNTRY_ID
-JOIN CONVERGENCE_MASTER_DATA AS DEPARTMENT ON DEPARTMENT.CONVERGENCE_MASTER_DATA_ID = FK_DEPARTMENT_ID
-JOIN CONVERGENCE_MASTER_DATA AS DIVISION ON DIVISION.CONVERGENCE_MASTER_DATA_ID = FK_DIVISION_ID
+LEFT JOIN CONVERGENCE_MASTER_DATA AS COUNTRY_DEPARTMENT ON COUNTRY_DEPARTMENT.CONVERGENCE_MASTER_DATA_ID = COUNTRY.FK_PARENT_CONVERGENCE_MASTER_DATA_ID
 LEFT JOIN CONTRACT ON CONTRACT_ID = FK_CONTRACT_ID
 JOIN DISBURSEMENT_PROJECTION ON FK_DISBURSEMENT_PROJECTION_BASE_ID = DISBURSEMENT_PROJECTION_BASE_ID
 WHERE FK_COUNTRY_DEPARTMENT_ID IN (@CountryDepartment)
@@ -757,14 +752,6 @@ WHERE FK_COUNTRY_DEPARTMENT_ID IN (@CountryDepartment)
         </Field>
         <Field Name="COUNTRY">
           <DataField>COUNTRY</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DEPARTMENT">
-          <DataField>DEPARTMENT</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DIVISION">
-          <DataField>DIVISION</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="OPERATION_NUMBER">
