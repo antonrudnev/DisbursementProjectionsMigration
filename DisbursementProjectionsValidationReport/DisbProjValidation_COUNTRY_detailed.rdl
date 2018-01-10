@@ -208,7 +208,7 @@
                             <TextRun>
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
-                                <Format>#,0,.0;(#,0,.0)</Format>
+                                <Format>#,0.0;(#,0.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -241,7 +241,7 @@
                             <TextRun>
                               <Value>=Fields!AMOUNT.Value</Value>
                               <Style>
-                                <Format>#,0,.0;(#,0,.0)</Format>
+                                <Format>#,0.0;(#,0.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -318,7 +318,7 @@
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>#,0,.0;(#,0,.0)</Format>
+                                <Format>#,0.0;(#,0.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -352,7 +352,7 @@
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>#,0,.0;(#,0,.0)</Format>
+                                <Format>#,0.0;(#,0.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -430,7 +430,7 @@
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>#,0,.0;(#,0,.0)</Format>
+                                <Format>#,0.0;(#,0.0)</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -465,7 +465,7 @@
                               <Value>=Sum(Fields!AMOUNT.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>#,0,.0;(#,0,.0)</Format>
+                                <Format>#,0.0;(#,0.0)</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -998,10 +998,10 @@
 	,COUNTRY.CODE AS COUNTRY
 	,OPERATION_NUMBER
 	,CONTRACT_NUMBER
-	,PLANNED_CANCELED_AMOUNT
+	,PLANNED_CANCELED_AMOUNT/1000 AS PLANNED_CANCELED_AMOUNT
 	,YEAR
 	,MONTH
-	,AMOUNT
+	,AMOUNT/1000 AS AMOUNT
 FROM DISBURSEMENT_PROJECTION_BASE
 JOIN OPERATION ON OPERATION_ID = FK_OPERATION_ID
 JOIN OPERATION_DATA ON OPERATION_DATA_ID = FK_OPERATION_DATA_ID
