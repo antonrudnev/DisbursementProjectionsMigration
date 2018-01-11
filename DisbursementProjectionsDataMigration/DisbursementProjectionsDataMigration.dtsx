@@ -12,8 +12,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DisbursementProjectionsDataMigration"
   DTS:PackageType="5"
-  DTS:VersionBuild="102"
-  DTS:VersionGUID="{150EC847-E0F3-460D-ADFC-2A434D314371}">
+  DTS:VersionBuild="105"
+  DTS:VersionGUID="{A4F94857-9CF5-43B6-B459-0D9E33860B26}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -2618,19 +2618,19 @@ FROM LMSADM1.DSBPRJBS</property>
               startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[No Match]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
-              endId="Package\Base Migration from Oracle\Sort Target by Contract.Inputs[Sort Input]"
-              name="OLE DB Source Output"
-              startId="Package\Base Migration from Oracle\Convergence Contracts to Join.Outputs[OLE DB Source Output]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
               endId="Package\Base Migration from Oracle\Conditional Split 1.Inputs[Conditional Split Input]"
               name="OLE DB Source Output"
               startId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
               endId="Package\Base Migration from Oracle\Sort Target by Operation.Inputs[Sort Input]"
               name="OLE DB Source Output"
               startId="Package\Base Migration from Oracle\Convergence Operations to Join.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+              endId="Package\Base Migration from Oracle\Sort Target by Contract.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Base Migration from Oracle\Convergence Contracts to Join.Outputs[OLE DB Source Output]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[Operation Level]"
               endId="Package\Base Migration from Oracle\Sort Source by Operation.Inputs[Sort Input]"
@@ -2658,14 +2658,14 @@ FROM LMSADM1.DSBPRJBS</property>
               startId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[To Migrate1]"
-              endId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
-              name="To Migrate"
-              startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[To Migrate]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
               endId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input]"
               name="To Migrate"
               startId="Package\Base Migration from Oracle\Conditional Split 2.Outputs[To Migrate]" />
+            <path
+              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
+              endId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
+              name="To Migrate"
+              startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[To Migrate]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[Union All Output 1]"
               endId="Package\Base Migration from Oracle\Error Message.Inputs[Derived Column Input]"
@@ -2673,6 +2673,91 @@ FROM LMSADM1.DSBPRJBS</property>
               startId="Package\Base Migration from Oracle\Union All.Outputs[Union All Output 1]" />
           </paths>
         </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Patching1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A29086B5-C1A3-4722-B5FC-65E18C890A85}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Patching1"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}"
+          SQLTask:SqlStatementSource="/******************************************/&#xA;--  Date: 02/10/2017&#xA;--  Jira: WLMSREPL-280&#xA;--  Release: 7.5&#xA;/******************************************/&#xA;&#x9;&#x9;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanNumber')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.LoanLevelProj.SummaryGrid.LoanNumber', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanNumber', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanNumber');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.LoanLevelProj.SummaryGrid.LoanNumber' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanNumber'), 'en', 'Loan Number', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Loan Number', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanNumber') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanStage')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.LoanLevelProj.SummaryGrid.LoanStage', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanStage', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanStage');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.LoanLevelProj.SummaryGrid.LoanStage' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanStage'), 'en', 'Loan Stage', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Loan Stage', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.LoanStage') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.CurrencyCode')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.LoanLevelProj.SummaryGrid.CurrencyCode', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.CurrencyCode', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.CurrencyCode');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.LoanLevelProj.SummaryGrid.CurrencyCode' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.CurrencyCode'), 'en', 'Currency Code', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Currency Code', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.CurrencyCode') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj'), 'en', 'Remaining Balance to Project', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Remaining Balance to Project', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.Main.DisbursementProjections')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.Main.DisbursementProjections', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.Main.DisbursementProjections', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.Main.DisbursementProjections');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.Main.DisbursementProjections' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.Main.DisbursementProjections'), 'en', 'Disbursement Projections', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Disbursement Projections', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.Main.DisbursementProjections') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ErrorSumValidation')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.LoanLevelProj.Msg.ErrorSumValidation', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ErrorSumValidation', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ErrorSumValidation');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.LoanLevelProj.Msg.ErrorSumValidation' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ErrorSumValidation'), 'en', 'The sum of the Projected Amounts should be equal to the Undisbursed Balance Amount minus the Cancellation projection Amount', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'The sum of the Projected Amounts should be equal to the Undisbursed Balance Amount minus the Cancellation projection Amount', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ErrorSumValidation') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ConfirmExpirationDateAfter')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.LoanLevelProj.Msg.ConfirmExpirationDateAfter', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ConfirmExpirationDateAfter', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ConfirmExpirationDateAfter');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.LoanLevelProj.Msg.ConfirmExpirationDateAfter' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ConfirmExpirationDateAfter'), 'en', 'Some of the projected amounts were entered after the current Disbursement’s Expiration Date', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Some of the projected amounts were entered after the current Disbursement’s Expiration Date', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.Msg.ConfirmExpirationDateAfter') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.GridProject.AmountsInThousandUSD')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.GridProject.AmountsInThousandUSD', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.GridProject.AmountsInThousandUSD', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.GridProject.AmountsInThousandUSD');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.GridProject.AmountsInThousandUSD' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.GridProject.AmountsInThousandUSD'), 'en', 'Amounts expressed in thousand of USD', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Amounts expressed in thousand of USD', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.GridProject.AmountsInThousandUSD') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.Save.Msg.ChangesSavedSuccessfully')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.Save.Msg.ChangesSavedSuccessfully', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.Save.Msg.ChangesSavedSuccessfully', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.Save.Msg.ChangesSavedSuccessfully');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.Save.Msg.ChangesSavedSuccessfully' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.Save.Msg.ChangesSavedSuccessfully'), 'en', 'Changes Saved Successfully', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Changes Saved Successfully', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.Save.Msg.ChangesSavedSuccessfully') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.retrieve.financial.plan')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.retrieve.financial.plan', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.retrieve.financial.plan', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.retrieve.financial.plan');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.retrieve.financial.plan' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.retrieve.financial.plan'), 'en', 'Retrieve Financial Plan', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Retrieve Financial Plan', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.retrieve.financial.plan') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.ApprovalCurrency')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.ApprovalCurrency', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.ApprovalCurrency', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.ApprovalCurrency');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.ApprovalCurrency' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.ApprovalCurrency'), 'en', 'Approval Currency', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Approval Currency', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.ApprovalCurrency') AND [LANGUAGE] = 'en');&#xA;END&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj'), 'en', 'Remaining Balance to Project', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Remaining Balance to Project', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.LoanLevelProj.SummaryGrid.RemainBalanceProj') AND [LANGUAGE] = 'en');&#xA;END&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.AnualProjected')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.CommonLevelProj.AnualProjected', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.CommonLevelProj.AnualProjected', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.AnualProjected');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.CommonLevelProj.AnualProjected' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.AnualProjected'), 'en', 'Annual Projected/Initial ', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Annual Projected/Initial ', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.AnualProjected') AND [LANGUAGE] = 'en');&#xA;END&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.MinimumAmount')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.CommonLevelProj.MinimumAmount', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.CommonLevelProj.MinimumAmount', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.MinimumAmount');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.CommonLevelProj.MinimumAmount' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.MinimumAmount'), 'en', 'Minimum Amount Pending ', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Minimum Amount Pending ', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.MinimumAmount') AND [LANGUAGE] = 'en');&#xA;END&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.GovermentBudget')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.CommonLevelProj.GovermentBudget', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.CommonLevelProj.GovermentBudget', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.GovermentBudget');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.CommonLevelProj.GovermentBudget' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.GovermentBudget'), 'en', 'Government Budget', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Government Budget', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.GovermentBudget') AND [LANGUAGE] = 'en');&#xA;END&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.OtherSources')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.CommonLevelProj.OtherSources', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.CommonLevelProj.OtherSources', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.OtherSources');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.CommonLevelProj.OtherSources' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.OtherSources'), 'en', 'Other Financing Sources', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Other Financing Sources', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.OtherSources') AND [LANGUAGE] = 'en');&#xA;END&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.FirstEligibility')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.CommonLevelProj.FirstEligibility', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.CommonLevelProj.FirstEligibility', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.FirstEligibility');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.CommonLevelProj.FirstEligibility' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.FirstEligibility'), 'en', 'First Eligibility Date', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'First Eligibility Date', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.FirstEligibility') AND [LANGUAGE] = 'en');&#xA;END&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.CurrentFinPlanPeriod')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.CommonLevelProj.CurrentFinPlanPeriod', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.CommonLevelProj.CurrentFinPlanPeriod', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.CurrentFinPlanPeriod');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.CommonLevelProj.CurrentFinPlanPeriod' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.CurrentFinPlanPeriod'), 'en', 'Current Financial Planning Period', GETDATE(), 'WLMSREPL', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Current Financial Planning Period', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.CommonLevelProj.CurrentFinPlanPeriod') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.SelectBaseYear')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_SOURCES] ([SOURCE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ('Disbursement.SelectBaseYear', GETDATE(), '', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_SOURCES] SET [SOURCE] = 'Disbursement.SelectBaseYear', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE [LOCALE_SOURCES_ID] = (SELECT LOCALE_SOURCES_ID FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.SelectBaseYear');&#xA;END&#x9;IF NOT EXISTS  (SELECT * FROM [dbo].[SYS_LOCALE_SOURCES] INNER JOIN [dbo].[SYS_LOCALE_TARGET] ON [FK_LOCALE_SOURCE_ID] = [LOCALE_SOURCES_ID] WHERE [SOURCE] LIKE 'Disbursement.SelectBaseYear' AND [LANGUAGE] LIKE 'en')&#xA;BEGIN&#xA;    INSERT INTO [dbo].[SYS_LOCALE_TARGET] ([FK_LOCALE_SOURCE_ID], [LANGUAGE], [TRANSLATE], [CREATED], [CREATED_BY], [MODIFIED], [MODIFIED_BY])&#xA;    VALUES ((SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.SelectBaseYear'), 'en', 'Select Base Year', GETDATE(), '', NULL, NULL);&#xA;END&#xA;ELSE&#xA;BEGIN&#xA;    UPDATE [dbo].[SYS_LOCALE_TARGET] SET [TRANSLATE] = 'Select Base Year', [MODIFIED] = GETDATE(), [MODIFIED_BY] = ''&#xA;    WHERE( [FK_LOCALE_SOURCE_ID] = (SELECT [LOCALE_SOURCES_ID] FROM [dbo].[SYS_LOCALE_SOURCES] WHERE [SOURCE] = 'Disbursement.SelectBaseYear') AND [LANGUAGE] = 'en');&#xA;END&#xA;&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;&#xA;-- (1 row(s) affected)&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Patching2"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7776b770-76f0-421d-8ab3-53a2c055a992}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Patching2"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}"
+          SQLTask:SqlStatementSource="/******************************************/&#xA;--  Date: 02/10/2017&#xA;--  Jira: WLMSREPL-191&#xA;--  Release: 7.5&#xA;/******************************************/&#xA;&#xA;DECLARE @TMP_MENU_CONFIG_OPER_STAGE AS TABLE&#xA;    (&#xA;      [STAGE_CODE] NVARCHAR(50)&#xA;    );&#xA;&#xA;DECLARE @OPERATION_TYPE_ID INT;&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM MENU_CONFIG_OPER_TYPE WHERE FK_MENU_ITEM_ID = (SELECT TOP(1) MENU_ITEM_ID from MENU_ITEM where TITLE = 'Disbursement Projection') AND OPERATION_TYPE_CODE = 'TCP')&#xA;BEGIN&#xA;INSERT INTO MENU_CONFIG_OPER_TYPE &#xA;(&#xA;    FK_MENU_ITEM_ID, OPERATION_TYPE_CODE&#xA;) &#xA;VALUES &#xA;(&#xA;    (SELECT TOP(1) MENU_ITEM_ID from MENU_ITEM where TITLE = 'Disbursement Projection'),&#xA;    'TCP'&#xA;)&#xA;END&#xA;&#xA;INSERT  INTO @TMP_MENU_CONFIG_OPER_STAGE&#xA;        ( STAGE_CODE&#xA;        )&#xA;        SELECT  STAGE.OPERATION_STAGE_CODE&#xA;        FROM    MENU_CONFIG_OPER_STAGE STAGE&#xA;                CROSS JOIN MENU_CONFIG_OPER_TYPE OPER_TYPE&#xA;        WHERE   OPER_TYPE.FK_MENU_ITEM_ID = ( SELECT    MENU_ITEM_ID&#xA;                                      FROM      dbo.MENU_ITEM&#xA;                                      WHERE     TITLE = 'Outputs_TCM'&#xA;                                    )&#xA;                AND STAGE.FK_MENU_CONFIG_OPER_TYPE_ID = OPER_TYPE.MENU_CONFIG_OPER_TYPE_ID&#xA;                AND OPER_TYPE.OPERATION_TYPE_CODE = 'TCP'&#xA;&#xA;SET @OPERATION_TYPE_ID = (SELECT MENU_CONFIG_OPER_TYPE_ID FROM MENU_CONFIG_OPER_TYPE WHERE FK_MENU_ITEM_ID = (SELECT TOP(1) MENU_ITEM_ID from MENU_ITEM where TITLE = 'Disbursement Projection') AND OPERATION_TYPE_CODE = 'TCP')&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM MENU_CONFIG_OPER_STAGE WHERE FK_MENU_CONFIG_OPER_TYPE_ID = (SELECT MENU_CONFIG_OPER_TYPE_ID FROM MENU_CONFIG_OPER_TYPE WHERE FK_MENU_ITEM_ID = (SELECT TOP(1) MENU_ITEM_ID from MENU_ITEM where TITLE = 'Disbursement Projection') AND OPERATION_TYPE_CODE = 'TCP') AND OPERATION_STAGE_CODE = 'default')&#xA;BEGIN&#xA;INSERT INTO MENU_CONFIG_OPER_STAGE &#xA;(&#xA;    FK_MENU_CONFIG_OPER_TYPE_ID, &#xA;    OPERATION_STAGE_CODE&#xA;) &#xA;&#x9;SELECT DISTINCT&#xA;&#x9;@OPERATION_TYPE_ID,&#xA;&#x9;[STAGE_CODE]&#xA;&#x9;FROM @TMP_MENU_CONFIG_OPER_STAGE&#xA;END&#xA;&#xA;IF NOT EXISTS (SELECT 1 FROM MENU_CONFIG_ATTRIBUTE WHERE FK_MENU_CONFIG_OPER_TYPE_ID = (SELECT MENU_CONFIG_OPER_TYPE_ID FROM MENU_CONFIG_OPER_TYPE WHERE FK_MENU_ITEM_ID = (SELECT TOP(1) MENU_ITEM_ID from MENU_ITEM where TITLE = 'Disbursement Projection') AND OPERATION_TYPE_CODE = 'TCP') AND ATTRIBUTE_CODE = 'default' AND ATTRIBUTE_VALUE = 'default')&#xA;BEGIN&#xA;&#xA;INSERT INTO MENU_CONFIG_ATTRIBUTE &#xA;(&#xA;&#x9;FK_MENU_CONFIG_OPER_TYPE_ID, &#xA;&#x9;ATTRIBUTE_CODE, &#xA;&#x9;ATTRIBUTE_VALUE&#xA;) &#xA;VALUES &#xA;(&#xA;    (SELECT MENU_CONFIG_OPER_TYPE_ID FROM MENU_CONFIG_OPER_TYPE WHERE FK_MENU_ITEM_ID = (SELECT TOP(1) MENU_ITEM_ID from MENU_ITEM where TITLE = 'Disbursement Projection') AND OPERATION_TYPE_CODE = 'TCP'),&#xA;    'default', &#xA;    'default'&#xA;)&#xA;END&#xA;&#xA;--(21 row(s) affected)&#xA;&#xA;--(21 row(s) affected)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Patching3"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{91effbe4-8697-471a-9581-7083a0f616eb}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Patching3"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}"
+          SQLTask:SqlStatementSource="/******************************************/&#xA;--  Date: 23/10/2017&#xA;--  Jira: WLMSREPL-&#xA;--  Release: &#xA;/******************************************/&#xA;&#xA;IF NOT EXISTS ( SELECT  1&#xA;                FROM    sys.columns&#xA;                WHERE   Name = N'IDB_CONTROLS_FUND_LIQUIDITY'&#xA;                        AND Object_ID = OBJECT_ID(N'FUND') ) &#xA;    BEGIN &#xA;        ALTER TABLE FUND&#xA;&#x9;&#x9;ADD IDB_CONTROLS_FUND_LIQUIDITY BIT NULL &#xA;    END&#xA;&#xA;--Command(s) completed successfully." xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Patching4"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{f1dedb9a-077e-4e6d-b6ec-0975eba49d4d}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Patching4"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}"
+          SQLTask:SqlStatementSource="/******************************************/&#xA;--  Date: 23/10/2017&#xA;--  Jira: WLMSREPL-&#xA;--  Release: &#xA;/******************************************/&#xA;IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'DISBURSEMENT_PROJECTION_BASE')&#xA;BEGIN&#xA;&#x9;CREATE TABLE [dbo].[DISBURSEMENT_PROJECTION_BASE](&#xA;&#x9;&#x9;[DISBURSEMENT_PROJECTION_BASE_ID] [int] IDENTITY(1,1) NOT NULL,&#xA;&#x9;&#x9;[FK_OPERATION_ID] [int] NOT NULL,&#xA;&#x9;&#x9;[FK_CONTRACT_ID] [int] NULL,&#xA;&#x9;&#x9;[PLANNED_CANCELED_AMOUNT] [decimal](18, 2) NOT NULL,&#xA;&#x9;&#x9;[CREATED] [datetime] NOT NULL,&#xA;&#x9;&#x9;[CREATED_BY] [nvarchar](50) NOT NULL,&#xA;&#x9;&#x9;[MODIFIED] [datetime] NULL,&#xA;&#x9;&#x9;[MODIFIED_BY] [nvarchar](50) NULL,&#xA;&#x9; CONSTRAINT [PK_DISBURSEMENT_PROJECTION_BASE] PRIMARY KEY CLUSTERED &#xA;&#x9;(&#xA;&#x9;&#x9;[DISBURSEMENT_PROJECTION_BASE_ID] ASC&#xA;&#x9;)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]&#xA;&#x9;) ON [PRIMARY]&#xA;&#xA;&#x9;ALTER TABLE [dbo].[DISBURSEMENT_PROJECTION_BASE]  WITH NOCHECK ADD  CONSTRAINT [DISBURSEMENT_PROJECTION_BASE_CONTRACT] FOREIGN KEY([FK_CONTRACT_ID])&#xA;&#x9;REFERENCES [dbo].[CONTRACT] ([CONTRACT_ID])&#xA;&#x9;NOT FOR REPLICATION &#xA;&#xA;&#x9;ALTER TABLE [dbo].[DISBURSEMENT_PROJECTION_BASE] NOCHECK CONSTRAINT [DISBURSEMENT_PROJECTION_BASE_CONTRACT]&#xA;&#xA;&#x9;ALTER TABLE [dbo].[DISBURSEMENT_PROJECTION_BASE]  WITH CHECK ADD  CONSTRAINT [DISBURSEMENT_PROJECTION_BASE_OPERATION] FOREIGN KEY([FK_OPERATION_ID])&#xA;&#x9;REFERENCES [dbo].[OPERATION] ([OPERATION_ID])&#xA;&#xA;&#x9;ALTER TABLE [dbo].[DISBURSEMENT_PROJECTION_BASE] CHECK CONSTRAINT [DISBURSEMENT_PROJECTION_BASE_OPERATION]&#xA;&#xA;END&#xA;&#xA;-- Command(s) completed successfully.&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Patching5"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{c6f9dc16-c52e-4ef6-9469-e814847c3bf3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Patching5"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}"
+          SQLTask:SqlStatementSource="/******************************************/&#xA;--  Date: 23/10/2017&#xA;--  Jira: WLMSREPL-&#xA;--  Release: &#xA;/******************************************/&#xA;IF NOT EXISTS (SELECT 1 FROM sys.tables WHERE name = 'DISBURSEMENT_PROJECTION')&#xA;BEGIN&#xA;&#x9;CREATE TABLE [dbo].[DISBURSEMENT_PROJECTION](&#xA;&#x9;&#x9;[DISBURSEMENT_PROJECTION_ID] [int] IDENTITY(1,1) NOT NULL,&#xA;&#x9;&#x9;[FK_DISBURSEMENT_PROJECTION_BASE_ID] [int] NOT NULL,&#xA;&#x9;&#x9;[YEAR] [int] NOT NULL,&#xA;&#x9;&#x9;[MONTH] [int] NOT NULL,&#xA;&#x9;&#x9;[AMOUNT] [decimal](18, 2) NOT NULL,&#xA;&#x9;&#x9;[CREATED] [datetime] NOT NULL,&#xA;&#x9;&#x9;[CREATED_BY] [nvarchar](50) NOT NULL,&#xA;&#x9;&#x9;[MODIFIED] [datetime] NULL,&#xA;&#x9;&#x9;[MODIFIED_BY] [nvarchar](50) NULL,&#xA;&#x9; CONSTRAINT [PK_DISBURSEMENT_PROJECTION] PRIMARY KEY CLUSTERED &#xA;&#x9;(&#xA;&#x9;&#x9;[DISBURSEMENT_PROJECTION_ID] ASC&#xA;&#x9;)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]&#xA;&#x9;) ON [PRIMARY]&#xA;&#xA;&#x9;ALTER TABLE [dbo].[DISBURSEMENT_PROJECTION]  WITH CHECK ADD  CONSTRAINT [DISBURSEMENT_PROJECTION_DISBURSEMENT_PROJECTION_BASE] FOREIGN KEY([FK_DISBURSEMENT_PROJECTION_BASE_ID])&#xA;&#x9;REFERENCES [dbo].[DISBURSEMENT_PROJECTION_BASE] ([DISBURSEMENT_PROJECTION_BASE_ID])&#xA;&#xA;&#x9;ALTER TABLE [dbo].[DISBURSEMENT_PROJECTION] CHECK CONSTRAINT [DISBURSEMENT_PROJECTION_DISBURSEMENT_PROJECTION_BASE]&#xA;&#xA;END&#xA;&#xA;-- Command(s) completed successfully.&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -3575,6 +3660,22 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
     <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{F5A122F6-BC5A-4E28-B23D-51EF95BB079E}"
+      DTS:From="Package\Patching1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Patching2" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{E1E58391-9892-484A-B433-58796E8A726C}"
+      DTS:From="Package\Patching2"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Patching3" />
+    <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1 1]"
       DTS:CreationName=""
       DTS:DTSID="{9f91f654-e3fb-4842-bb4a-42de7a29a9f8}"
@@ -3598,6 +3699,30 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 3"
       DTS:To="Package\Postprocessing" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{53CDD19C-DA5D-4885-91CF-B6F440D146EC}"
+      DTS:From="Package\Patching3"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Patching4" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{C9A3C641-B208-45FD-AD68-60878369D46C}"
+      DTS:From="Package\Patching4"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Patching5" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{8FCF786C-CAF2-4D0C-9E49-AA15F3A5F971}"
+      DTS:From="Package\Patching5"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Preprocessing" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -3610,26 +3735,26 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="207,42"
           Id="Package\Base Migration from Oracle"
-          TopLeft="506.25,115" />
+          TopLeft="506.25,157" />
         <NodeLayout
           Size="149,42"
           Id="Package\Postprocessing"
-          TopLeft="535.5,315.5" />
+          TopLeft="535.5,357.5" />
         <NodeLayout
           Size="144,42"
           Id="Package\Preprocessing"
-          TopLeft="321.5,4.5" />
+          TopLeft="536.5,42.5" />
         <NodeLayout
           Size="236,42"
           Id="Package\Projections Migration from Oracle"
-          TopLeft="488.75,211.75" />
+          TopLeft="488.75,253.75" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1 1]"
-          TopLeft="608.25,157">
+          TopLeft="608.25,199">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3651,30 +3776,18 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="416.166666666667,46.5">
+          TopLeft="609.125,84.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="193.583333333333,68.5"
+              EndConnector="0,72.5"
               Start="0,0"
-              End="193.583333333333,61">
+              End="0,65">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,23.8516483516484" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,23.8516483516484"
-                    Point2="0,27.8516483516484"
-                    Point3="4,27.8516483516484" />
-                  <mssgle:LineSegment
-                    End="189.583333333333,27.8516483516484" />
-                  <mssgle:CubicBezierSegment
-                    Point1="189.583333333333,27.8516483516484"
-                    Point2="193.583333333333,27.8516483516484"
-                    Point3="193.583333333333,31.8516483516484" />
-                  <mssgle:LineSegment
-                    End="193.583333333333,61" />
+                    End="0,65" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3685,7 +3798,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="608.375,253.75">
+          TopLeft="608.375,295.75">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3697,6 +3810,148 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,54.25" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Patching1"
+          TopLeft="187,4" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Patching2"
+          TopLeft="185,86.5" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Patching3"
+          TopLeft="185,188.5" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Patching4"
+          TopLeft="185,290.5" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Patching5"
+          TopLeft="185,392.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="248.5,46">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.5"
+              Start="0,0"
+              End="0,33">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="247.5,128.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="247.5,230.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="247.5,332.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="267,392.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="318.833333333333,-308"
+              Start="0,0"
+              End="318.833333333333,-300.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-150.315675908944" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-150.315675908944"
+                    Point2="0,-154.315675908944"
+                    Point3="4,-154.315675908944" />
+                  <mssgle:LineSegment
+                    End="314.833333333333,-154.315675908944" />
+                  <mssgle:CubicBezierSegment
+                    Point1="314.833333333333,-154.315675908944"
+                    Point2="318.833333333333,-154.315675908944"
+                    Point3="318.833333333333,-158.315675908944" />
+                  <mssgle:LineSegment
+                    End="318.833333333333,-300.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3800,35 +4055,13 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[To Migrate1]"
-          TopLeft="917.625,294">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,58.5"
-              Start="0,0"
-              End="0,51">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,51" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-24.56244140625,19.8076171875,49.1248828125,11.384765625"
+              BoundingBox="0,0,0,0"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[To Migrate]"
+          Id="Package\Base Migration from Oracle.Paths[To Migrate1]"
           TopLeft="375.875,292">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -3852,6 +4085,30 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[To Migrate]"
+          TopLeft="917.625,294">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58.5"
+              Start="0,0"
+              End="0,51">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-24.56244140625,19.8076171875,49.1248828125,11.384765625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
           Id="Package\Base Migration from Oracle.Paths[Sort Output3]"
           TopLeft="921.25,123.5">
           <EdgeLayout.Curve>
@@ -3870,7 +4127,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3892,7 +4151,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3914,7 +4175,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3936,7 +4199,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3965,50 +4230,6 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
-          TopLeft="653.25,47.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,34.5"
-              Start="0,0"
-              End="0,27">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,27" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
-          TopLeft="1146.375,124.25">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,42.25"
-              Start="0,0"
-              End="0,34.75">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,34.75" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
           TopLeft="139.5,124.75">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -4026,7 +4247,57 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
+          TopLeft="653.25,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.5"
+              Start="0,0"
+              End="0,27">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+          TopLeft="1146.375,124.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.25"
+              Start="0,0"
+              End="0,34.75">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.75" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4096,7 +4367,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4118,7 +4391,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4140,7 +4415,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout

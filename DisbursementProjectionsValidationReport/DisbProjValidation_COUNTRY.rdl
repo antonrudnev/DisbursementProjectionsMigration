@@ -725,7 +725,7 @@
             <Value>=Parameters!CONTRACT.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>SELECT COUNTRY_DEPARTMENT.CODE AS COUNTRY_DEPARTMENT
+        <CommandText>SELECT ISNULL(COUNTRY_DEPARTMENT.CODE, 'REG') AS COUNTRY_DEPARTMENT
 	,COUNTRY.CODE AS COUNTRY
 	,OPERATION_NUMBER
 	,CONTRACT_NUMBER

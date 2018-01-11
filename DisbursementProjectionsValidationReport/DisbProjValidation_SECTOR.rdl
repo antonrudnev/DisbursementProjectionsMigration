@@ -752,7 +752,7 @@
             <Value>=Parameters!CONTRACT.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>SELECT DEPARTMENT.CODE AS DEPARTMENT
+        <CommandText>SELECT ISNULL(DEPARTMENT.CODE, 'REG') AS DEPARTMENT
 	,DIVISION.CODE AS DIVISION
 	,OPERATION_NUMBER
 	,CONTRACT_NUMBER
