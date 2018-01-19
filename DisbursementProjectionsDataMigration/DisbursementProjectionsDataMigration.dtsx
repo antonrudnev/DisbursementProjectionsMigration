@@ -12,8 +12,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DisbursementProjectionsDataMigration"
   DTS:PackageType="5"
-  DTS:VersionBuild="113"
-  DTS:VersionGUID="{037880C5-B809-4AFA-B23B-29F802EB4660}">
+  DTS:VersionBuild="114"
+  DTS:VersionGUID="{ADF3F2E4-7382-4D8D-A85C-C92757FF526E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -2616,20 +2616,15 @@ FROM LMSADM1.DSBPRJBS</property>
               name="Merge Join Output"
               startId="Package\Base Migration from Oracle\Join by Operation.Outputs[Merge Join Output]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[No Match1]"
+              refId="Package\Base Migration from Oracle.Paths[No Match]"
               endId="Package\Base Migration from Oracle\Union All.Inputs[Union All Input 2]"
               name="No Match"
               startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[No Match]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[No Match]"
+              refId="Package\Base Migration from Oracle.Paths[No Match1]"
               endId="Package\Base Migration from Oracle\Union All.Inputs[Union All Input 1]"
               name="No Match"
               startId="Package\Base Migration from Oracle\Conditional Split 2.Outputs[No Match]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
-              endId="Package\Base Migration from Oracle\Conditional Split 1.Inputs[Conditional Split Input]"
-              name="OLE DB Source Output"
-              startId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
               endId="Package\Base Migration from Oracle\Sort Target by Operation.Inputs[Sort Input]"
@@ -2641,40 +2636,45 @@ FROM LMSADM1.DSBPRJBS</property>
               name="OLE DB Source Output"
               startId="Package\Base Migration from Oracle\Convergence Contracts to Join.Outputs[OLE DB Source Output]" />
             <path
+              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+              endId="Package\Base Migration from Oracle\Conditional Split 1.Inputs[Conditional Split Input]"
+              name="OLE DB Source Output"
+              startId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output]" />
+            <path
               refId="Package\Base Migration from Oracle.Paths[Operation Level]"
               endId="Package\Base Migration from Oracle\Sort Source by Operation.Inputs[Sort Input]"
               name="Operation Level"
               startId="Package\Base Migration from Oracle\Conditional Split 1.Outputs[Operation Level]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[Sort Output3]"
+              refId="Package\Base Migration from Oracle.Paths[Sort Output]"
               endId="Package\Base Migration from Oracle\Merge Join.Inputs[Merge Join Left Input]"
               name="Sort Output"
               startId="Package\Base Migration from Oracle\Sort Source by Contract.Outputs[Sort Output]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[Sort Output]"
+              refId="Package\Base Migration from Oracle.Paths[Sort Output1]"
               endId="Package\Base Migration from Oracle\Merge Join.Inputs[Merge Join Right Input]"
               name="Sort Output"
               startId="Package\Base Migration from Oracle\Sort Target by Contract.Outputs[Sort Output]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[Sort Output1]"
+              refId="Package\Base Migration from Oracle.Paths[Sort Output2]"
               endId="Package\Base Migration from Oracle\Join by Operation.Inputs[Merge Join Left Input]"
               name="Sort Output"
               startId="Package\Base Migration from Oracle\Sort Target by Operation.Outputs[Sort Output]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[Sort Output2]"
+              refId="Package\Base Migration from Oracle.Paths[Sort Output3]"
               endId="Package\Base Migration from Oracle\Join by Operation.Inputs[Merge Join Right Input]"
               name="Sort Output"
               startId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
-              endId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input]"
-              name="To Migrate"
-              startId="Package\Base Migration from Oracle\Conditional Split 2.Outputs[To Migrate]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[To Migrate1]"
               endId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
               name="To Migrate"
               startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[To Migrate]" />
+            <path
+              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
+              endId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input]"
+              name="To Migrate"
+              startId="Package\Base Migration from Oracle\Conditional Split 2.Outputs[To Migrate]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[Union All Output 1]"
               endId="Package\Base Migration from Oracle\Error Message.Inputs[Derived Column Input]"
@@ -2823,6 +2823,7 @@ FROM LMSADM1.DSBPRJBS</property>
     <DTS:Executable
       DTS:refId="Package\Projections Migration from Oracle"
       DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
       DTS:Description="Data Flow Task"
       DTS:DTSID="{26a8711a-0a20-4970-89e3-95a24b9c77a1}"
       DTS:ExecutableType="Microsoft.Pipeline"
@@ -3795,6 +3796,10 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           Id="Package\Patching5"
           TopLeft="184,392.5" />
         <NodeLayout
+          Size="125,42"
+          Id="Package\Patching6"
+          TopLeft="187.5,501.5" />
+        <NodeLayout
           Size="149,42"
           Id="Package\Postprocessing"
           TopLeft="535.5,357.5" />
@@ -3972,10 +3977,6 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="125,42"
-          Id="Package\Patching6"
-          TopLeft="187.5,501.5" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
           TopLeft="248.25,434.5">
@@ -4097,6 +4098,10 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           Id="Package\Base Migration from Oracle\Convergence Contracts to Join"
           TopLeft="1031.75,82.25" />
         <NodeLayout
+          Size="121,42"
+          Id="Package\Base Migration from Oracle\Union All"
+          TopLeft="587,248" />
+        <NodeLayout
           Size="198,42"
           Id="Package\Base Migration from Oracle\Sort Source by Operation"
           TopLeft="276,83.5" />
@@ -4104,6 +4109,30 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           Size="164,42"
           Id="Package\Base Migration from Oracle\Conditional Split 1"
           TopLeft="570,82" />
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[Union All Output 1]"
+          TopLeft="647.5,290">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63.5"
+              Start="0,0"
+              End="0,56">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\Base Migration from Oracle.Paths[To Migrate1]"
           TopLeft="917.625,294">
@@ -4154,28 +4183,6 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Base Migration from Oracle.Paths[Sort Output3]"
-          TopLeft="921.25,123.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,46.5"
-              Start="0,0"
-              End="0,39">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,39" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Sort Output2]"
           TopLeft="375.38654946852,125.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -4193,11 +4200,13 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Sort Output1]"
+          Id="Package\Base Migration from Oracle.Paths[Sort Output2]"
           TopLeft="235.5,188.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -4215,11 +4224,13 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Sort Output]"
+          Id="Package\Base Migration from Oracle.Paths[Sort Output1]"
           TopLeft="1055,189.25">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -4237,7 +4248,33 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[Sort Output]"
+          TopLeft="921.25,123.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.5"
+              Start="0,0"
+              End="0,39">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4283,7 +4320,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4305,7 +4344,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4327,7 +4368,57 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[No Match1]"
+          TopLeft="456.25,270">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="130.75,0"
+              Start="0,0"
+              End="123.25,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="123.25,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="40.44806640625,5,42.3538671875,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Base Migration from Oracle.Paths[No Match]"
+          TopLeft="834.25,271">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-126.25,0"
+              Start="0,0"
+              End="-118.75,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-118.75,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-80.55193359375,5,42.3538671875,9.7490234375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4349,7 +4440,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4371,7 +4464,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4393,7 +4488,9 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4418,80 +4515,6 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
             <mssgm:EdgeLabel
               BoundingBox="9.22535156249999,5,64.049296875,9.7490234375"
               RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="121,42"
-          Id="Package\Base Migration from Oracle\Union All"
-          TopLeft="587,248" />
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[No Match]"
-          TopLeft="456.25,270">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="130.75,0"
-              Start="0,0"
-              End="123.25,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="123.25,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="40.44806640625,5,42.3538671875,9.7490234375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[No Match1]"
-          TopLeft="834.25,271">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-126.25,0"
-              Start="0,0"
-              End="-118.75,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="-118.75,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-80.55193359375,5,42.3538671875,9.7490234375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[Union All Output 1]"
-          TopLeft="647.5,290">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,63.5"
-              Start="0,0"
-              End="0,56">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,56" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
