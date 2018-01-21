@@ -12,8 +12,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DisbursementProjectionsDataMigration"
   DTS:PackageType="5"
-  DTS:VersionBuild="114"
-  DTS:VersionGUID="{ADF3F2E4-7382-4D8D-A85C-C92757FF526E}">
+  DTS:VersionBuild="115"
+  DTS:VersionGUID="{4056C1F7-9457-4C03-97B4-CC9AF2AB9D18}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -2627,19 +2627,19 @@ FROM LMSADM1.DSBPRJBS</property>
               startId="Package\Base Migration from Oracle\Conditional Split 2.Outputs[No Match]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
-              endId="Package\Base Migration from Oracle\Sort Target by Operation.Inputs[Sort Input]"
-              name="OLE DB Source Output"
-              startId="Package\Base Migration from Oracle\Convergence Operations to Join.Outputs[OLE DB Source Output]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
               endId="Package\Base Migration from Oracle\Sort Target by Contract.Inputs[Sort Input]"
               name="OLE DB Source Output"
               startId="Package\Base Migration from Oracle\Convergence Contracts to Join.Outputs[OLE DB Source Output]" />
             <path
-              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
               endId="Package\Base Migration from Oracle\Conditional Split 1.Inputs[Conditional Split Input]"
               name="OLE DB Source Output"
               startId="Package\Base Migration from Oracle\Disbursement Projections Base.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+              endId="Package\Base Migration from Oracle\Sort Target by Operation.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Base Migration from Oracle\Convergence Operations to Join.Outputs[OLE DB Source Output]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[Operation Level]"
               endId="Package\Base Migration from Oracle\Sort Source by Operation.Inputs[Sort Input]"
@@ -2667,14 +2667,14 @@ FROM LMSADM1.DSBPRJBS</property>
               startId="Package\Base Migration from Oracle\Sort Source by Operation.Outputs[Sort Output]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[To Migrate1]"
-              endId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
-              name="To Migrate"
-              startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[To Migrate]" />
-            <path
-              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
               endId="Package\Base Migration from Oracle\Push Operation Level Projections.Inputs[OLE DB Destination Input]"
               name="To Migrate"
               startId="Package\Base Migration from Oracle\Conditional Split 2.Outputs[To Migrate]" />
+            <path
+              refId="Package\Base Migration from Oracle.Paths[To Migrate]"
+              endId="Package\Base Migration from Oracle\Push Contract Level Projections.Inputs[OLE DB Destination Input]"
+              name="To Migrate"
+              startId="Package\Base Migration from Oracle\Conditional Split 3.Outputs[To Migrate]" />
             <path
               refId="Package\Base Migration from Oracle.Paths[Union All Output 1]"
               endId="Package\Base Migration from Oracle\Error Message.Inputs[Derived Column Input]"
@@ -2783,7 +2783,7 @@ FROM LMSADM1.DSBPRJBS</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{8F7CA0D7-1329-407E-A5D4-D9FC09F200EF}"
-          SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.VW_DISB_PRJCTN_ELIGIBILITY') IS NOT NULL&#xA;&#x9;DROP VIEW VW_DISB_PRJCTN_ELIGIBILITY&#xA;GO&#xA;&#xA;CREATE VIEW VW_DISB_PRJCTN_ELIGIBILITY&#xA;AS&#xA;WITH CURRENT_DISBURSEMENT_EXPIRATION AS&#xA;(SELECT FK_CONTRACT_ID&#xA;&#x9;,CURRENT_EXPIRATION_DATE&#xA;&#x9;,ROW_NUMBER() OVER (PARTITION BY FK_CONTRACT_ID ORDER BY CLAUSE_INDIVIDUAL_ID DESC) AS RN&#xA;FROM CLAUSE_CONTRACT&#xA;JOIN CLAUSE ON CLAUSE_ID = CLAUSE_CONTRACT.FK_CLAUSE_ID&#xA;JOIN CONVERGENCE_MASTER_DATA AS CLAUSE_TYPE ON CLAUSE_TYPE.CONVERGENCE_MASTER_DATA_ID = CLAUSE.FK_CATEGORY_ID&#xA;JOIN CLAUSE_INDIVIDUAL ON CLAUSE_INDIVIDUAL.FK_CLAUSE_ID = CLAUSE_ID&#xA;WHERE CLAUSE_TYPE.CODE = 'LASTD'),&#xA;&#xA;TOTAL_PROJECTED AS&#xA;(SELECT FK_DISBURSEMENT_PROJECTION_BASE_ID&#xA;&#x9;,SUM(AMOUNT) AS AMOUNT&#xA;FROM DISBURSEMENT_PROJECTION&#xA;GROUP BY FK_DISBURSEMENT_PROJECTION_BASE_ID),&#xA;&#xA;DISBURSEMENT_PROJECTIONS AS&#xA;(SELECT FK_OPERATION_ID&#xA;&#x9;,FK_CONTRACT_ID&#xA;&#x9;,AMOUNT + PLANNED_CANCELED_AMOUNT AS PROJECTIONS&#xA;FROM DISBURSEMENT_PROJECTION_BASE&#xA;JOIN TOTAL_PROJECTED ON FK_DISBURSEMENT_PROJECTION_BASE_ID = DISBURSEMENT_PROJECTION_BASE_ID)&#xA;&#xA;SELECT OPERATION_ID&#xA;&#x9;,OPERATION_NUMBER&#xA;&#x9;,CONTRACT_ID&#xA;&#x9;,CONTRACT_DNUM&#xA;&#x9;,CONTRACT_NUMBER&#xA;&#x9;,IIF((OPERATION_TYPE.CODE = 'LON' AND FUND_CODE IN ('ORC','BLD','GRF','VTF','MSF','SQP'))&#xA;&#x9;&#x9;&#x9;OR (OPERATION_TYPE.CODE = 'TCP' AND FUND.IDB_CONTROLS_FUND_LIQUIDITY = 1)&#xA;&#x9;&#x9;&#x9;OR (OPERATION_TYPE.CODE = 'IGR' AND (FUND_CODE IN ('ORC','BLD','GRF','VTF','MSF','SQP') AND TOTAL_COST_CURRENT &gt;= 3000000) OR TOTAL_COST_CURRENT &lt; 3000000 AND FUND.IDB_CONTROLS_FUND_LIQUIDITY = 1) &#xA;&#x9;&#x9;,IIF(CONTRACT_STATUS.CODE NOT IN ('CO','CA','FD','PC','DE','CF') &#xA;&#x9;&#x9;&#x9;&#x9;AND COALESCE(CURRENT_EXPIRATION_DATE, ORIGINAL_EXPIRATION_DATE) &gt;= GETDATE()&#xA;&#x9;&#x9;&#x9;&#x9;AND COALESCE(CONTRACT_PROJECTIONS.PROJECTIONS, OPERATION_PROJECTIONS.PROJECTIONS, 0) &gt; 0&#xA;&#x9;&#x9;&#x9;,1&#xA;&#x9;&#x9;&#x9;,0)&#xA;&#x9;&#x9;,1) IS_DIS_PRJCNT_ELIGIBLE&#xA;FROM CONTRACT&#xA;JOIN OPERATION ON OPERATION_ID = CONTRACT.FK_OPERATION_ID&#xA;JOIN OPERATION_DATA ON OPERATION_DATA_ID = FK_OPERATION_DATA_ID&#xA;JOIN CONVERGENCE_MASTER_DATA AS OPERATION_TYPE ON OPERATION_TYPE.CONVERGENCE_MASTER_DATA_ID = OPERATION_DATA.FK_OPERATION_TYPE_ID&#xA;JOIN CONVERGENCE_MASTER_DATA AS CONTRACT_STATUS ON CONTRACT_STATUS.CONVERGENCE_MASTER_DATA_ID = CONTRACT.FK_LOAN_STATUS&#xA;LEFT JOIN CURRENT_DISBURSEMENT_EXPIRATION ON CURRENT_DISBURSEMENT_EXPIRATION.FK_CONTRACT_ID = CONTRACT_ID&#xA;&#x9;AND CURRENT_DISBURSEMENT_EXPIRATION.RN = 1&#xA;LEFT JOIN DISBURSEMENT_PROJECTIONS AS CONTRACT_PROJECTIONS ON CONTRACT_PROJECTIONS.FK_CONTRACT_ID = CONTRACT_ID&#xA;LEFT JOIN DISBURSEMENT_PROJECTIONS AS OPERATION_PROJECTIONS ON OPERATION_PROJECTIONS.FK_OPERATION_ID = OPERATION_ID &#xA;&#x9;AND CONTRACT_PROJECTIONS.FK_CONTRACT_ID IS NULL&#xA;&#x9;AND OPERATION_PROJECTIONS.FK_CONTRACT_ID IS NULL&#xA;JOIN FUND_OPERATION ON FUND_OPERATION.FK_OPERATION_ID = OPERATION_ID&#xA;&#x9;AND FUND_OPERATION.APPROVAL_NUMBER = CONTRACT_NUMBER&#xA;JOIN FUND ON FUND_ID = FUND_OPERATION.FK_FUND_ID&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="IF OBJECT_ID('dbo.VW_DISB_PRJCTN_ELIGIBILITY') IS NOT NULL&#xA;&#x9;DROP VIEW VW_DISB_PRJCTN_ELIGIBILITY&#xA;GO&#xA;&#xA;CREATE VIEW [dbo].[VW_DISB_PRJCTN_ELIGIBILITY] &#xA;AS&#xA;WITH CURRENT_DISBURSEMENT_EXPIRATION AS&#xA;(SELECT FK_CONTRACT_ID&#xA;&#x9;,CURRENT_EXPIRATION_DATE&#xA;&#x9;,ROW_NUMBER() OVER (PARTITION BY FK_CONTRACT_ID ORDER BY CLAUSE_INDIVIDUAL_ID DESC) AS RN&#xA;FROM CLAUSE_CONTRACT&#xA;JOIN CLAUSE ON CLAUSE_ID = CLAUSE_CONTRACT.FK_CLAUSE_ID&#xA;JOIN CONVERGENCE_MASTER_DATA AS CLAUSE_TYPE ON CLAUSE_TYPE.CONVERGENCE_MASTER_DATA_ID = CLAUSE.FK_CATEGORY_ID&#xA;JOIN CLAUSE_INDIVIDUAL ON CLAUSE_INDIVIDUAL.FK_CLAUSE_ID = CLAUSE_ID&#xA;WHERE CLAUSE_TYPE.CODE = 'LASTD'),&#xA;&#xA;TOTAL_PROJECTED AS&#xA;(SELECT FK_DISBURSEMENT_PROJECTION_BASE_ID&#xA;&#x9;,SUM(AMOUNT) AS AMOUNT&#xA;FROM DISBURSEMENT_PROJECTION&#xA;GROUP BY FK_DISBURSEMENT_PROJECTION_BASE_ID),&#xA;&#xA;DISBURSEMENT_PROJECTIONS AS&#xA;(SELECT FK_OPERATION_ID&#xA;&#x9;,FK_CONTRACT_ID&#xA;&#x9;,AMOUNT + PLANNED_CANCELED_AMOUNT AS PROJECTIONS&#xA;FROM DISBURSEMENT_PROJECTION_BASE&#xA;JOIN TOTAL_PROJECTED ON FK_DISBURSEMENT_PROJECTION_BASE_ID = DISBURSEMENT_PROJECTION_BASE_ID)&#xA;&#xA;SELECT OPERATION_ID&#xA;&#x9;,OPERATION_NUMBER&#xA;&#x9;,CONTRACT_ID&#xA;&#x9;,CONTRACT_DNUM&#xA;&#x9;,CONTRACT_NUMBER&#xA;&#x9;,IIF((OPERATION_TYPE.CODE = 'LON' AND FUND_CODE IN ('ORC','BLD','GRF','VTF','MSF','SQP'))&#xA;&#x9;&#x9;&#x9;OR (OPERATION_TYPE.CODE = 'TCP' AND FUND.IDB_CONTROLS_FUND_LIQUIDITY = 1)&#xA;&#x9;&#x9;&#x9;OR (OPERATION_TYPE.CODE = 'IGR' AND (FUND_CODE IN ('ORC','BLD','GRF','VTF','MSF','SQP') AND TOTAL_COST_CURRENT &gt;= 3000000) OR TOTAL_COST_CURRENT &lt; 3000000 AND FUND.IDB_CONTROLS_FUND_LIQUIDITY = 1) &#xA;&#x9;&#x9;,IIF(CONTRACT_STATUS.CODE NOT IN ('CO','CA','FD','PC','DE','CF') &#xA;&#x9;&#x9;&#x9;&#x9;AND COALESCE(CURRENT_EXPIRATION_DATE, ORIGINAL_EXPIRATION_DATE, GETDATE()) &gt;= GETDATE()&#xA;&#x9;&#x9;&#x9;&#x9;AND COALESCE(CONTRACT_PROJECTIONS.PROJECTIONS, OPERATION_PROJECTIONS.PROJECTIONS, 0) &gt; 0&#xA;&#x9;&#x9;&#x9;,1&#xA;&#x9;&#x9;&#x9;,0)&#xA;&#x9;&#x9;,1) IS_DIS_PRJCNT_ELIGIBLE&#xA;FROM CONTRACT&#xA;JOIN OPERATION ON OPERATION_ID = CONTRACT.FK_OPERATION_ID&#xA;JOIN OPERATION_DATA ON OPERATION_DATA_ID = FK_OPERATION_DATA_ID&#xA;JOIN CONVERGENCE_MASTER_DATA AS OPERATION_TYPE ON OPERATION_TYPE.CONVERGENCE_MASTER_DATA_ID = OPERATION_DATA.FK_OPERATION_TYPE_ID&#xA;JOIN CONVERGENCE_MASTER_DATA AS CONTRACT_STATUS ON CONTRACT_STATUS.CONVERGENCE_MASTER_DATA_ID = CONTRACT.FK_LOAN_STATUS&#xA;LEFT JOIN CURRENT_DISBURSEMENT_EXPIRATION ON CURRENT_DISBURSEMENT_EXPIRATION.FK_CONTRACT_ID = CONTRACT_ID&#xA;&#x9;AND CURRENT_DISBURSEMENT_EXPIRATION.RN = 1&#xA;LEFT JOIN DISBURSEMENT_PROJECTIONS AS CONTRACT_PROJECTIONS ON CONTRACT_PROJECTIONS.FK_CONTRACT_ID = CONTRACT_ID&#xA;LEFT JOIN DISBURSEMENT_PROJECTIONS AS OPERATION_PROJECTIONS ON OPERATION_PROJECTIONS.FK_OPERATION_ID = OPERATION_ID &#xA;&#x9;AND CONTRACT_PROJECTIONS.FK_CONTRACT_ID IS NULL&#xA;&#x9;AND OPERATION_PROJECTIONS.FK_CONTRACT_ID IS NULL&#xA;JOIN FUND_OPERATION ON FUND_OPERATION.FK_OPERATION_ID = OPERATION_ID&#xA;&#x9;AND FUND_OPERATION.APPROVAL_NUMBER = CONTRACT_NUMBER&#xA;JOIN FUND ON FUND_ID = FUND_OPERATION.FK_FUND_ID&#xA;GO&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -4134,7 +4134,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[To Migrate1]"
+          Id="Package\Base Migration from Oracle.Paths[To Migrate]"
           TopLeft="917.625,294">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -4158,7 +4158,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[To Migrate]"
+          Id="Package\Base Migration from Oracle.Paths[To Migrate1]"
           TopLeft="375.875,292">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -4302,7 +4302,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
           TopLeft="1146.375,124.25">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -4326,7 +4326,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output1]"
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
           TopLeft="139.5,124.75">
           <EdgeLayout.Curve>
             <mssgle:Curve
@@ -4350,7 +4350,7 @@ where [refTable].[DISBURSEMENT_PROJECTION_BASE_ID] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output]"
+          Id="Package\Base Migration from Oracle.Paths[OLE DB Source Output2]"
           TopLeft="653.25,47.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
